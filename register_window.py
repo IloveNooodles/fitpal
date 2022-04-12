@@ -250,6 +250,12 @@ class RegisterWindow(QWidget):
     msgBox.setStyleSheet("background-color: white")
     msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
     msgBox.exec()
+    # Clear form inputs
+    self.nameEdit.clear()
+    self.unameEdit.clear()
+    self.emailEdit.clear()
+    self.passwordEdit.clear()
+    # Emit signal to controller
     self.switch.emit()
 
 if __name__ == "__main__":
