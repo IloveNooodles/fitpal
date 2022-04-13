@@ -186,7 +186,11 @@ class LoginWindow(QWidget):
           "password": res[3],
           "type": res[4]
         }
-        self.switch.emit("user_dashboard", user)
+        if (res[4] == "user"):
+          self.switch.emit("user_dashboard", user)
+        else:
+          # todo: dashboard trainer
+          pass
 
   def clearForm(self):
     self.passwordEdit.clear()
