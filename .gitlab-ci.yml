@@ -1,7 +1,12 @@
 image: python:latest
 
+before_script:
+  - python --version  # For debugging
+  - pip install isort black flake8 pylint pytest
+
 stages:
     - linting
+    - test
 
 isort:
     stage: linting
@@ -36,5 +41,14 @@ pylint:
         - rpl
     script:
         - pylint $(find . -iname "*.py")
+    only:
+        - merge_request
+
+pytest:
+    stage: test
+    tags:
+        - rpl
+    script:
+        - pytest
     only:
         - merge_request
