@@ -6,7 +6,7 @@ stages:
 isort:
     stage: linting
     tags: 
-        - ci/cd-linting
+        - rpl
     script:
         - isort . --check-only
     only:
@@ -15,7 +15,7 @@ isort:
 black:
     stage: linting
     tags: 
-        - ci/cd-linting
+        - rpl
     script:
         - black --check .
     only:
@@ -24,7 +24,7 @@ black:
 flake8:
     stage: linting
     tags: 
-        - ci/cd-linting
+        - rpl
     script:
         - flake8 .
     only:
@@ -33,7 +33,7 @@ flake8:
 pylint:
     stage: linting
     tags: 
-        - ci/cd-linting
+        - rpl
     script:
         - pylint $(find . -iname "*.py")
     only:
