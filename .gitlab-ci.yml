@@ -1,0 +1,27 @@
+stages:
+    - linting
+
+isort:
+    stage: linting
+    script: isort . --check-only
+
+black:
+    stage: linting
+    script:
+        - black --check .
+    only:
+        - merge_request
+
+flake8:
+    stage: linting
+    script:
+        - flake8 .
+    only:
+        - merge_request
+
+pylint:
+    stage: linting
+    script:
+        - pylint $(find . -iname "*.py")
+    only:
+        - merge_request
