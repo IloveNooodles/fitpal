@@ -1,12 +1,21 @@
+image: python:latest
+
 stages:
     - linting
 
 isort:
     stage: linting
-    script: isort . --check-only
+    tags: 
+        - pdss-dev
+    script:
+        - isort . --check-only
+    only:
+        - merge_request
 
 black:
     stage: linting
+    tags: 
+        - pdss-dev
     script:
         - black --check .
     only:
@@ -14,6 +23,8 @@ black:
 
 flake8:
     stage: linting
+    tags: 
+        - pdss-dev
     script:
         - flake8 .
     only:
@@ -21,6 +32,8 @@ flake8:
 
 pylint:
     stage: linting
+    tags: 
+        - pdss-dev
     script:
         - pylint $(find . -iname "*.py")
     only:
