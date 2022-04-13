@@ -6,7 +6,7 @@ stages:
 isort:
     stage: linting
     tags: 
-        - pdss-dev
+        - ci/cd-linting
     script:
         - isort . --check-only
     only:
@@ -15,7 +15,7 @@ isort:
 black:
     stage: linting
     tags: 
-        - pdss-dev
+        - ci/cd-linting
     script:
         - black --check .
     only:
@@ -24,7 +24,7 @@ black:
 flake8:
     stage: linting
     tags: 
-        - pdss-dev
+        - ci/cd-linting
     script:
         - flake8 .
     only:
@@ -33,7 +33,7 @@ flake8:
 pylint:
     stage: linting
     tags: 
-        - pdss-dev
+        - ci/cd-linting
     script:
         - pylint $(find . -iname "*.py")
     only:
