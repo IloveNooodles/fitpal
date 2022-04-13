@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication
 from login_window import LoginWindow
 from register_window import RegisterWindow
 from dashboard_user import UserDashboard
+from dashboard_trainer import TrainerDashboard
 
 class Controller:
   def __init__(self):
@@ -13,6 +14,8 @@ class Controller:
     self.registerWindow.switch.connect(self.fromRegister)
     self.userDashboard = UserDashboard()
     self.userDashboard.switch.connect(self.fromUserDashboard)
+    self.trainerDashboard = TrainerDashboard()
+    self.trainerDashboard.switch.connect(self.fromTrainerDashboard)
     self.initializeDatabase()
     pass
 
@@ -31,9 +34,18 @@ class Controller:
     elif page == "user_dashboard":
       self.userDashboard.updateUser(user)
       self.userDashboard.show()
+    elif page == "trainer_dashboard":
+      self.trainerDashboard.updateUser(user)
+      self.trainerDashboard.show()
 
   def fromUserDashboard(self, page, user):
     self.userDashboard.close()
+    if page == "login":
+      self.loginWindow.clearForm()
+      self.loginWindow.show()
+
+  def fromTrainerDashboard(self, page, user):
+    self.trainerDashboard.close()
     if page == "login":
       self.loginWindow.clearForm()
       self.loginWindow.show()
