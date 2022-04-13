@@ -7,7 +7,7 @@ from PyQt6.QtCore import pyqtSignal
 from custom_widgets import ClickableLabel
 
 class LoginWindow(QWidget):
-  switch = pyqtSignal()
+  switch = pyqtSignal(str, dict)
 
   def __init__(self):
     super().__init__()
@@ -150,7 +150,7 @@ class LoginWindow(QWidget):
     eyeIcon.clicked.connect(self.toggleShowPassword)
 
   def showRegisterWindow(self):
-    self.switch.emit()
+    self.switch.emit("register", {})
 
   def toggleShowPassword(self):
     self.showPassword = not (self.showPassword)
@@ -179,6 +179,18 @@ class LoginWindow(QWidget):
         msgBox.setStyleSheet("background-color: white")
         msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
         msgBox.exec()
+        user = {
+          "fullname": res[0],
+          "username": res[1],
+          "email": res[2],
+          "password": res[3],
+          "type": res[4]
+        }
+        self.switch.emit("user_dashboard", user)
+
+  def clearForm(self):
+    self.passwordEdit.clear()
+    self.usernameEdit.clear()
 
 if __name__ == "__main__":
   app = QApplication(sys.argv)

@@ -3,23 +3,40 @@ import sqlite3
 from PyQt6.QtWidgets import QApplication
 from login_window import LoginWindow
 from register_window import RegisterWindow
+from dashboard_user import UserDashboard
 
 class Controller:
   def __init__(self):
     self.loginWindow = LoginWindow()
-    self.loginWindow.switch.connect(self.showRegister)
+    self.loginWindow.switch.connect(self.fromLogin)
     self.registerWindow = RegisterWindow()
-    self.registerWindow.switch.connect(self.showLogin)
+    self.registerWindow.switch.connect(self.fromRegister)
+    self.userDashboard = UserDashboard()
+    self.userDashboard.switch.connect(self.fromUserDashboard)
     self.initializeDatabase()
     pass
 
-  def showLogin(self):
-    self.registerWindow.close()
+  def start(self):
     self.loginWindow.show()
 
-  def showRegister(self):
+  def fromRegister(self):
+    self.registerWindow.close()
+    self.loginWindow.clearForm()
+    self.loginWindow.show()
+
+  def fromLogin(self, page, user):
     self.loginWindow.close()
-    self.registerWindow.show()
+    if page == "register":
+      self.registerWindow.show()
+    elif page == "user_dashboard":
+      self.userDashboard.updateUser(user)
+      self.userDashboard.show()
+
+  def fromUserDashboard(self, page, user):
+    self.userDashboard.close()
+    if page == "login":
+      self.loginWindow.clearForm()
+      self.loginWindow.show()
   
   def initializeDatabase(self):
     self.conn = sqlite3.connect("fitpal.db")
@@ -39,5 +56,5 @@ class Controller:
 if __name__ == "__main__":
   app = QApplication(sys.argv)
   controller = Controller()
-  controller.showLogin()
+  controller.start()
   sys.exit(app.exec())

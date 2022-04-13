@@ -10,7 +10,9 @@ light_purple = '#A19AFE'
 btn_color = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);'
 btn_color_hover = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff)'
 
-class Dashboard(QWidget):
+class UserDashboard(QWidget):
+  switch = pyqtSignal(str, dict)
+
   def __init__(self, user = None):
     super().__init__()
     if (user != None):
@@ -161,9 +163,17 @@ class Dashboard(QWidget):
     logOutBtn.setFont(inter16)
     logOutBtn.move(1099, 88)
     logOutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+    logOutBtn.clicked.connect(self.logOut)
+
+  def updateUser(self, user):
+    self.user = user
+    self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
+
+  def logOut(self):
+    self.switch.emit("login", {})
 
 if __name__ == "__main__":
   app = QApplication(sys.argv)
-  window = Dashboard()
+  window = UserDashboard()
   window.show()
   sys.exit(app.exec())
