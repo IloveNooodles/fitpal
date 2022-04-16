@@ -40,7 +40,7 @@ pylint:
     tags: 
         - rpl
     script:
-        - python -m pylint *.py
+        - python -m pylint src
     only:
         - merge_request
 
