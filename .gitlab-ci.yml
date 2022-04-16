@@ -40,7 +40,7 @@ pylint:
     tags: 
         - rpl
     script:
-        - python -m pylint $(find . -iname "*.py")
+        - python -m pylint *.py
     only:
         - merge_request
 
