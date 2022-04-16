@@ -5,6 +5,7 @@ from login_window import LoginWindow
 from register_window import RegisterWindow
 from dashboard_user import UserDashboard
 from dashboard_trainer import TrainerDashboard
+from add_workout import trainer_AddWorkout
 
 class Controller:
   def __init__(self):
@@ -16,6 +17,8 @@ class Controller:
     self.userDashboard.switch.connect(self.fromUserDashboard)
     self.trainerDashboard = TrainerDashboard()
     self.trainerDashboard.switch.connect(self.fromTrainerDashboard)
+    self.addWorkout = trainer_AddWorkout()
+    self.addWorkout.switch.connect(self.fromAddWorkout)
     self.initializeDatabase()
     pass
 
@@ -49,6 +52,19 @@ class Controller:
     if page == "login":
       self.loginWindow.clearForm()
       self.loginWindow.show()
+    elif page == "add_workout":
+      self.addWorkout.updateUser(user)
+      self.addWorkout.show()
+  
+  def fromAddWorkout(self, page, user):
+    self.addWorkout.close()
+    if page == "login":
+      self.loginWindow.clearForm()
+      self.loginWindow.show()
+    elif page == "trainer_dashboard":
+      self.trainerDashboard.updateUser(user)
+      self.trainerDashboard.show()
+
   
   def initializeDatabase(self):
     self.conn = sqlite3.connect("fitpal.db")
@@ -60,6 +76,15 @@ class Controller:
         email text,
         password text,
         type text
+      )
+    """)
+    c.execute("""
+      CREATE TABLE IF NOT EXISTS workout (
+        title text,
+        specification text,
+        description text,
+        illustration text,
+        tutorial text
       )
     """)
     self.conn.commit()
