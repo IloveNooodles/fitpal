@@ -41,8 +41,6 @@ pylint:
         - rpl
     script:
         - python -m pylint src
-    only:
-        - merge_request
 
 pytest:
     stage: test
