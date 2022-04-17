@@ -2,7 +2,7 @@ image: python:3.9
 
 before_script:
   - python --version  # For debugging
-  - pip3 install isort black flake8 pylint pytest
+  - pip install isort black flake8 pylint pytest
 
 stages:
     - linting
