@@ -10,35 +10,21 @@ stages:
 
 isort:
     stage: linting
-    tags: 
-        - rpl
     script:
         - python -m isort . --check-only
-    only:
-        - merge_request
 
 black:
     stage: linting
-    tags: 
-        - rpl
     script:
         - python -m black --check .
-    only:
-        - merge_request
 
 flake8:
     stage: linting
-    tags: 
-        - rpl
     script:
         - python -m flake8 .
-    only:
-        - merge_request
 
 pylint:
     stage: linting
-    tags: 
-        - rpl
     script:
         - python -m pylint src
 
