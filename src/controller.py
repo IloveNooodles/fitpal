@@ -10,7 +10,7 @@ from add_workout import trainer_AddWorkout
 from display_workout import DisplayWorkout
 from display_workout_trainer import DisplayWorkoutTrainer
 from finish_workout import FinishWorkout
-
+from add_history import addHistory
 
 class Controller:
     def __init__(self):
@@ -30,6 +30,9 @@ class Controller:
         self.displayWorkoutTrainer = DisplayWorkoutTrainer()
         self.displayWorkoutTrainer.switch.connect(self.fromDisplayWorkoutTrainer)
         self.finishWorkout = FinishWorkout()
+        self.finishWorkout.switch.connect(self.fromFinishWorkout)
+        self.addHistory = addHistory()
+        self.addHistory.switch.connect(self.fromAddHistory)
         pass
 
     def start(self):
@@ -78,9 +81,9 @@ class Controller:
         if page == "login":
             self.loginWindow.clearForm()
             self.loginWindow.show()
-        elif page == "trainer_dashboard":
-            self.trainerDashboard.updateUser(user)
-            self.trainerDashboard.show()
+        elif page == "display_workout":
+            self.displayWorkoutTrainer.updateUser(user)
+            self.displayWorkoutTrainer.show()
 
     def fromDisplayWorkout(self, page, user):
         self.displayWorkout.close()
@@ -103,6 +106,21 @@ class Controller:
             self.addWorkout.updateUser(user)
             self.addWorkout.show()
 
+    def fromFinishWorkout(self, page, user):
+        self.finishWorkout.close()
+        if page == "user_dashboard":
+            self.userDashboard.updateUser(user)
+            self.userDashboard.show()
+        elif page == "add_history":
+            self.addHistory.updateUser(user)
+            self.addHistory.show()
+    
+    def fromAddHistory(self, page, user):
+        self.addHistory.close()
+        if page == "finish_workout":
+            self.finishWorkout.updateUser(user)
+            self.finishWorkout.show()
+            
     def initializeDatabase(self):
         self.conn = sqlite3.connect("fitpal.db")
         c = self.conn.cursor()
@@ -148,6 +166,15 @@ class Controller:
             olahraga_id integer,
             status boolean
             )
+        """)
+        c.execute("""
+          CREATE TABLE IF NOT EXISTS workout_history (
+            history_id integer PRIMARY KEY AUTOINCREMENT,
+            olahraga_id integer,
+            specification text,
+            date text,
+            FOREIGN KEY(olahraga_id) REFERENCES list_olahraga(olahraga_id)
+          )
         """)
         self.conn.commit()
         self.conn.close()

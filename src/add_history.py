@@ -1,7 +1,7 @@
 import sys
 import sqlite3
 import webbrowser
-from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QLineEdit
+from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QLineEdit, QMessageBox
 from PyQt6.QtGui import QFont, QPixmap, QCursor, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -41,7 +41,7 @@ back_btn_style = f'''
 card_content_style = "color: #FFF; background-color: #3E405B"
 
 
-class add_history(QWidget):
+class addHistory(QWidget):
     switch = pyqtSignal(str, dict)
 
     def __init__(self, user=None):
@@ -56,6 +56,7 @@ class add_history(QWidget):
                 "password": "johndoe",
                 "type": "user"
             }
+        self.conn = sqlite3.connect("fitpal.db")
         self.setUpDashboardWindow()
 
     def setUpDashboardWindow(self):
@@ -162,24 +163,24 @@ class add_history(QWidget):
         # end of title input
 
         # date input
-        self.Date = QLabel(self)
-        self.Date.setText("Date")
-        self.Date.move(400, 450)
-        self.Date.setStyleSheet(
+        self.date = QLabel(self)
+        self.date.setText("Date")
+        self.date.move(400, 450)
+        self.date.setStyleSheet(
             f"color: {white}; background-color: {bg_color}")
-        self.Date.setFont(inter16)
-        self.Date = QLineEdit(self)
-        self.Date.setPlaceholderText("05-06-2022, 01-10-2021")
-        self.Date.setFixedSize(465, 45)
-        self.Date.move(400, 480)
-        self.Date.setStyleSheet('''
+        self.date.setFont(inter16)
+        self.date = QLineEdit(self)
+        self.date.setPlaceholderText("05 January 2022, 01 March 2021")
+        self.date.setFixedSize(465, 45)
+        self.date.move(400, 480)
+        self.date.setStyleSheet('''
           padding: 11px 30px 11px 30px;
           border: 1px solid rgba(255, 255, 255, 0.8);
           border-radius: 20px;
           color: rgba(255, 255, 255, 0.8);
           background-color: #3E405B
         ''')
-        self.Date.setFont(inter16)
+        self.date.setFont(inter16)
         # end of date input
 
         # back button
@@ -201,17 +202,58 @@ class add_history(QWidget):
         self.addBtn.setFixedSize(121, 48)
         self.addBtn.move(190, 627)
         self.addBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        # self.addBtn.clicked.connect(self.addWorkout)
+        self.addBtn.clicked.connect(self.addHistory)
         # end of add new workout
 
-    def userDashboard(self):
-        self.switch.emit("user_dashboard", self.user)
+    def updateUser(self, user):
+        self.user = user
+
+    def addHistory(self):
+        if self.title_input.text() == "" or self.specification.text() == "" or self.date.text() == "":
+            self.msgBox = QMessageBox()
+            self.msgBox.setText("Please fill out the form properly!")
+            self.msgBox.setIcon(QMessageBox.Icon.Warning)
+            self.msgBox.setStyleSheet("background-color: white")
+            self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+            self.msgBox.exec()
+            return
+        c = self.conn.cursor()
+        c.execute(f"SELECT * FROM list_olahraga WHERE name = '{self.title_input.text()}'")
+        res = c.fetchall()
+        print(self.title_input.text(), self.specification.text(), self.date.text())
+        if(self.title_input.text() == "Push Up"):
+            print("takbir")
+        #klo gak ketemu
+        if(res == None or res == []):
+            self.msgBox = QMessageBox()
+            self.msgBox.setText("No such workout exists!")
+            self.msgBox.setIcon(QMessageBox.Icon.Warning)
+            self.msgBox.setStyleSheet("background-color: white")
+            self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+            self.msgBox.exec()
+            return
+        print(res)
+        print(res[0][0])
+        #klo ketemu res nyimpen idnya berart olahraganya ada tinggal insert
+        c.execute(f"INSERT INTO workout_history (olahraga_id, specification, date) VALUES ({res[0][0]}, '{self.specification.text()}', '{self.date.text()}')")
+        
+        #close connection and clear
+        self.conn.commit()
+        self.title_input.clear()
+        self.specification.clear()
+        self.date.clear()
+
+        #add history succesful
+        self.msgBox = QMessageBox()
+        self.msgBox.setText("Successfuly added workout to your history!")
+        self.msgBox.setWindowTitle("Successfuly added workout to your history!")
+        self.msgBox.setIcon(QMessageBox.Icon.Information)
+        self.msgBox.setStyleSheet("background-color: white")
+        self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+        self.msgBox.exec()
 
     def fetchHistory(self):
         self.history = history_list
-
-    def logOut(self):
-        self.switch.emit("login", self.user)
 
     def FinishWorkout(self):
         self.switch.emit("finish_workout", self.user)
@@ -219,6 +261,6 @@ class add_history(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = add_history()
+    window = addHistory()
     window.show()
     sys.exit(app.exec())

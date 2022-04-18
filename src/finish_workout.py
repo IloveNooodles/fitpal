@@ -97,6 +97,7 @@ class FinishWorkout(QWidget):
                 "password": "johndoe",
                 "type": "user"
             }
+        self.conn = sqlite3.connect("fitpal.db")
         self.pageHistory = 0
         self.history = None
         self.fetchHistory()
@@ -151,43 +152,22 @@ class FinishWorkout(QWidget):
             f"color: {atlantic}; background-color: {bg_color}")
         self.title.move(60, 120)
         # end of title
-        self.initializeHistoryPage()
-        self.setUpHistoryPage()
 
         # arrow left and right gatau cara buatnya
         self.arrowleft = QPushButton(self)
         self.arrowleft.setStyleSheet(
-            "background: url(images/chevron-compact-left.png);")
+            "background: url(images/left-btn.png);")
         self.arrowleft.setGeometry(200, 370, 48, 48)
         self.arrowleft.clicked.connect(self.leftButtonClicked)
+        self.arrowleft.hide()
         self.arrowright = QPushButton(self)
         self.arrowright.setStyleSheet(
-            "background: url(images/chevron-compact-right.png);")
+            "background: url(images/right-btn.png);")
         self.arrowright.move(1130, 370)
         self.arrowright.clicked.connect(self.rightButtonClicked)
         self.arrowright.setGeometry(1130, 370, 48, 48)
+        self.arrowright.hide()
         # end of arrow
-
-        # hello label user
-        self.helloLabel = QLabel(self)
-        self.helloLabel.setText(f"Hello, {self.user['fullname']}")
-        self.helloLabel.move(635, 44)
-        self.helloLabel.setStyleSheet(hello_label_style)
-        self.helloLabel.setFixedSize(585, 29)
-        self.helloLabel.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.helloLabel.setFont(inter24)
-        # end of hello label
-
-        # logout button
-        self.logOutBtn = QPushButton(self)
-        self.logOutBtn.setText("Log Out")
-        self.logOutBtn.setStyleSheet(logout_btn_style)
-        self.logOutBtn.setFont(inter16)
-        self.logOutBtn.setFixedSize(121, 48)
-        self.logOutBtn.move(1099, 88)
-        self.logOutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.logOutBtn.clicked.connect(self.logOut)
-        # end of logout button
 
         # back button
         self.backBtn = QPushButton(self)
@@ -208,8 +188,10 @@ class FinishWorkout(QWidget):
         self.addBtn.setFixedSize(121, 48)
         self.addBtn.move(190, 627)
         self.addBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        # self.addBtn.clicked.connect(self.addWorkout)
+        self.addBtn.clicked.connect(self.addHistory)
         # end of add new workout
+        self.initializeHistoryPage()
+        self.setUpHistoryPage()
 
     def initializeHistoryPage(self):
 
@@ -233,20 +215,23 @@ class FinishWorkout(QWidget):
             self.cards[i]["card"].setPixmap(QPixmap("images/Card.png"))
             self.cards[i]["card"].move(250 + 300 * i, 209)
             self.cards[i]["image"] = QLabel(self)
-            self.cards[i]["image"].move(300 + 300 * i, 250)
+            self.cards[i]["image"].move(320 + 300 * i, 270)
             self.cards[i]["image"].setStyleSheet(f"background-color: #373951")
             self.cards[i]["heading"] = QLabel(self)
             self.cards[i]["heading"].move(270 + 300 * i, 450)
             self.cards[i]["heading"].setFont(inter24bold)
             self.cards[i]["heading"].setStyleSheet(card_content_style)
+            self.cards[i]["heading"].setFixedSize(250, 30)
             self.cards[i]["text"] = QLabel(self)
             self.cards[i]["text"].move(270 + 300 * i, 490)
             self.cards[i]["text"].setFont(inter16)
             self.cards[i]["text"].setStyleSheet(card_content_style)
             self.cards[i]["date"] = QLabel(self)
             self.cards[i]["date"].setFont(inter16)
-            self.cards[i]["date"].move(400 + 300*i, 490)
+            self.cards[i]["date"].move(380 + 300*i, 490)
             self.cards[i]["date"].setStyleSheet(card_content_style)
+            self.cards[i]["date"].setFixedSize(140, 20)
+            self.cards[i]["date"].setAlignment(Qt.AlignmentFlag.AlignRight)
             self.cards[i]["tutorial"] = QPushButton(self)
             self.cards[i]["tutorial"].setStyleSheet(logout_btn_style)
             self.cards[i]["tutorial"].setText("Tutorial Video")
@@ -285,6 +270,16 @@ class FinishWorkout(QWidget):
                 self.cards[i]["card"].hide()
                 self.cards[i]["tutorial"].hide()
 
+        if self.pageHistory == 0:
+            self.arrowleft.hide()
+        else:
+            self.arrowleft.show()
+        
+        if start + 3 < len(self.history):
+            self.arrowright.show()
+        else:
+            self.arrowright.hide()
+
     def openTutorial(self, idx):
         idx += self.pageHistory*3
         webbrowser.open(self.history[idx]["linkTutorial"])
@@ -307,17 +302,29 @@ class FinishWorkout(QWidget):
 
     def updateUser(self, user):
         self.user = user
-        self.helloLabel.setText(f"Hello, {self.user['fullname']}")
+
+    def addHistory(self):
+        self.switch.emit("add_history", self.user)
 
     def userDashboard(self):
         self.switch.emit("user_dashboard", self.user)
 
     def fetchHistory(self):
+        c = self.conn.cursor()
+        c.execute("SELECT * FROM workout_history JOIN list_olahraga USING (olahraga_id)")
+        histories = c.fetchall()
+        c.close()
+        print("ini history", histories)
+        history_list = []
+        for history in histories:
+            history_list.append({
+              "specification": history[2],
+              "date": history[3],
+              "name": history[4],
+              "linkTutorial": history[8],
+              "linkIllustration": history[7]
+            })
         self.history = history_list
-
-    def logOut(self):
-        self.switch.emit("login", self.user)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

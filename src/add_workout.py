@@ -218,7 +218,7 @@ class trainer_AddWorkout(QWidget):
     ''')
     self.goBack.setFont(inter16)
     self.goBack.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-    self.goBack.clicked.connect(self.backToDashboard)
+    self.goBack.clicked.connect(self.backToDisplayWorkout)
 
     self.Add = QPushButton(self)
     self.Add.setText("Add")
@@ -276,8 +276,8 @@ class trainer_AddWorkout(QWidget):
     self.illustration.clear()
     self.Tutorial.clear()
         
-  def backToDashboard(self):
-    self.switch.emit("trainer_dashboard", self.user)
+  def backToDisplayWorkout(self):
+    self.switch.emit("display_workout", self.user)
 
   def updateUser(self, user):
     self.user = user
