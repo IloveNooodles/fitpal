@@ -249,7 +249,7 @@ class trainer_AddWorkout(QWidget):
       msgBox.exec()
       return
     c = self.conn.cursor()
-    c.execute(f"SELECT * FROM workout WHERE title = '{self.title.text()}' AND specification = '{self.specification.text()}'")
+    c.execute(f"SELECT * FROM list_olahraga WHERE name = '{self.title.text()}' AND specification = '{self.specification.text()}' AND forUser = 'NULL'")
     if (c.fetchone() != None):
       msgBox = QMessageBox()
       msgBox.setText("<p>Workout already exist!</p>")
@@ -259,7 +259,7 @@ class trainer_AddWorkout(QWidget):
       msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
       msgBox.exec()
       return
-    c.execute(f"INSERT INTO workout VALUES ('{self.title.text()}', '{self.specification.text()}', '{self.desc.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}')")
+    c.execute(f"INSERT INTO list_olahraga (name, description, specification, linkIllustration, linkTutorial, forUser) VALUES ('{self.title.text()}', '{self.desc.text()}', '{self.specification.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}', 'NULL')")
     self.conn.commit()
   # Tunjukkan registrasi berhasil
     msgBox = QMessageBox()

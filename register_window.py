@@ -236,10 +236,10 @@ class RegisterWindow(QWidget):
         msgBox.exec()
         return
     if (self.rbUser.isChecked()):
-      c.execute(f"INSERT INTO user VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'user')")
+      c.execute(f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'user')")
       self.conn.commit()
     else:
-      c.execute(f"INSERT INTO user VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'trainer')")
+      c.execute(f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'trainer')")
       self.conn.commit()
     # Tunjukkan registrasi berhasil
     msgBox = QMessageBox()

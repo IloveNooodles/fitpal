@@ -6,9 +6,11 @@ from register_window import RegisterWindow
 from dashboard_user import UserDashboard
 from dashboard_trainer import TrainerDashboard
 from add_workout import trainer_AddWorkout
+from display_workout import DisplayWorkout
 
 class Controller:
   def __init__(self):
+    self.initializeDatabase()
     self.loginWindow = LoginWindow()
     self.loginWindow.switch.connect(self.fromLogin)
     self.registerWindow = RegisterWindow()
@@ -19,7 +21,8 @@ class Controller:
     self.trainerDashboard.switch.connect(self.fromTrainerDashboard)
     self.addWorkout = trainer_AddWorkout()
     self.addWorkout.switch.connect(self.fromAddWorkout)
-    self.initializeDatabase()
+    self.displayWorkout = DisplayWorkout()
+    self.displayWorkout.switch.connect(self.fromDisplayWorkout)
     pass
 
   def start(self):
@@ -46,6 +49,10 @@ class Controller:
     if page == "login":
       self.loginWindow.clearForm()
       self.loginWindow.show()
+    elif page == "display_workout":
+      self.displayWorkout.updateUser(user)
+      self.displayWorkout.show()
+
 
   def fromTrainerDashboard(self, page, user):
     self.trainerDashboard.close()
@@ -64,6 +71,15 @@ class Controller:
     elif page == "trainer_dashboard":
       self.trainerDashboard.updateUser(user)
       self.trainerDashboard.show()
+  def fromDisplayWorkout(self, page, user):
+    self.displayWorkout.close()
+    if page == "login":
+      self.loginWindow.clearForm()
+      self.loginWindow.show()
+    elif page == "user_dashboard":
+      self.userDashboard.updateUser(user)
+      self.userDashboard.show()
+
 
   
   def initializeDatabase(self):
@@ -71,6 +87,7 @@ class Controller:
     c = self.conn.cursor()
     c.execute("""
       CREATE TABLE IF NOT EXISTS user (
+        user_id integer PRIMARY KEY AUTOINCREMENT,
         fullname text,
         username text,
         email text,
@@ -79,13 +96,37 @@ class Controller:
       )
     """)
     c.execute("""
-      CREATE TABLE IF NOT EXISTS workout (
-        title text,
-        specification text,
+      CREATE TABLE IF NOT EXISTS list_olahraga (
+        olahraga_id integer PRIMARY KEY AUTOINCREMENT,
+        name text,
         description text,
-        illustration text,
-        tutorial text
+        specification text,
+        linkIllustration text,
+        linkTutorial text,
+        forUser integer
       )
+    """)
+    c.execute("""
+      CREATE TABLE IF NOT EXISTS daftar_request (
+        request_id integer PRIMARY KEY AUTOINCREMENT,
+        user_id integer,
+        trainer_id integer,
+        umur integer,
+        jenis_kelamin text,
+        berat_badan integer,
+        tinggi_badan integer,
+        tujuan text,
+        status boolean,
+        title text,
+        description text
+      )
+    """)
+    c.execute("""
+      CREATE TABLE IF NOT EXISTS workout (
+        request_id integer,
+        olahraga_id integer,
+        status boolean
+        )
     """)
     self.conn.commit()
     self.conn.close()
