@@ -23,48 +23,48 @@ daftar_workout = [
         "name": "Push Up",
         "description": "Push-ups are exercises to strengthen your arms and \nchest muscles. They are done by lying with your face \ntowards the floor and pushing with your hands to \nraise your body until your arms are straight.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=bTJIkQRsmaE",
-        "linkIllustration" : "images/push-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=bTJIkQRsmaE",
+        "linkIllustration": "images/push-up.png",
     },
     {
         "id": 2,
         "name": "Sit Up",
         "description": "Sit-ups are exercises that you do to strengthen your \nstomach muscles. They involve sitting up from a lying \nposition while keeping your legs straight on the floor.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=6eJVLbgxbBE",
-        "linkIllustration" : "images/sit-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=6eJVLbgxbBE",
+        "linkIllustration": "images/sit-up.png",
     },
     {
         "id": 3,
         "name": "Pull Up",
         "description": "A pull-up is an upper-body strength exercise. The \npull-up is a closed-chain movement where the body \nis suspended by the hands and pulls up.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=eGo4IYlbE5g",
-        "linkIllustration" : "images/pull-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+        "linkIllustration": "images/pull-up.png",
     },
     {
         "id": 4,
         "name": "Sit Up",
         "description": "Sit-ups are exercises that you do to strengthen your \nstomach muscles. They involve sitting up from a lying \nposition while keeping your legs straight on the floor.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=6eJVLbgxbBE",
-        "linkIllustration" : "images/sit-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=6eJVLbgxbBE",
+        "linkIllustration": "images/sit-up.png",
     },
     {
         "id": 5,
         "name": "Pull Up",
         "description": "A pull-up is an upper-body strength exercise. The \npull-up is a closed-chain movement where the body \nis suspended by the hands and pulls up.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=eGo4IYlbE5g",
-        "linkIllustration" : "images/pull-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+        "linkIllustration": "images/pull-up.png",
     },
     {
         "id": 6,
         "name": "Push Up",
         "description": "Push-ups are exercises to strengthen your arms and \nchest muscles. They are done by lying with your face \ntowards the floor and pushing with your hands to \nraise your body until your arms are straight.",
         "specification": "10 Repetition",
-        "linkTutorial" : "https://www.youtube.com/watch?v=bTJIkQRsmaE",
-        "linkIllustration" : "images/push-up.png",
+        "linkTutorial": "https://www.youtube.com/watch?v=bTJIkQRsmaE",
+        "linkIllustration": "images/push-up.png",
     }
 ]
 
@@ -73,20 +73,21 @@ daftar_workout_plan = [
         "id": 1,
         "name": "Leg Day",
         "description": "This workout plan is made to strengthen your \nleg muscles.",
-        "seeMore" : "inilinkseemore1"
+        "seeMore": "inilinkseemore1"
     },
     {
         "id": 2,
         "name": "Chest Day",
         "description": "This workout plan is made to strengthen your \nabdominal muscles.",
-        "seeMore" : "inilinkseemore1"
+        "seeMore": "inilinkseemore1"
     }
 ]
+
 
 class DisplayWorkout(QWidget):
     switch = pyqtSignal(str, dict)
 
-    def __init__(self, user = None):
+    def __init__(self, user=None):
         super().__init__()
         if (user != None):
             self.user = user
@@ -105,18 +106,18 @@ class DisplayWorkout(QWidget):
         self.listWorkoutPlan = None
         self.fetchWorkout()
         self.setUpDisplayWorkoutWindow()
-    
+
     def setUpDisplayWorkoutWindow(self):
         self.setFixedSize(1280, 720)
         self.setWindowTitle("FitPal - Display Workout")
         self.setUpWidgets()
-    
+
     def setUpWidgets(self):
         # Fonts
         inter24 = QFont()
         inter24.setFamily("Inter")
         inter24.setPixelSize(24)
-        
+
         inter16 = QFont()
         inter16.setFamily("Inter")
         inter16.setPixelSize(16)
@@ -135,7 +136,8 @@ class DisplayWorkout(QWidget):
         self.helloLabel = QLabel(self)
         self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
         self.helloLabel.move(635, 44)
-        self.helloLabel.setStyleSheet(f'color: rgba(255, 255, 255, 0.8); background-color: {bg_color}')
+        self.helloLabel.setStyleSheet(
+            f'color: rgba(255, 255, 255, 0.8); background-color: {bg_color}')
         self.helloLabel.setFixedSize(585, 29)
         self.helloLabel.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.helloLabel.setFont(inter24)
@@ -167,23 +169,29 @@ class DisplayWorkout(QWidget):
 
         self.rightWorkoutButton = QPushButton(self)
         self.rightWorkoutButton.setGeometry(QRect(1130, 308, 48, 48))
-        self.rightWorkoutButton.setStyleSheet(f"background-image: url(images/right-btn.png);")
+        self.rightWorkoutButton.setStyleSheet(
+            f"background-image: url(images/right-btn.png);")
         self.rightWorkoutButton.clicked.connect(self.rightWorkoutButtonClicked)
 
         self.leftWorkoutButton = QPushButton(self)
         self.leftWorkoutButton.setGeometry(QRect(102, 308, 48, 48))
-        self.leftWorkoutButton.setStyleSheet(f"background-image: url(images/left-btn.png);")
+        self.leftWorkoutButton.setStyleSheet(
+            f"background-image: url(images/left-btn.png);")
         self.leftWorkoutButton.clicked.connect(self.leftWorkoutButtonClicked)
 
         self.rightWorkoutPlanButton = QPushButton(self)
         self.rightWorkoutPlanButton.setGeometry(QRect(1130, 590, 48, 48))
-        self.rightWorkoutPlanButton.setStyleSheet(f"background-image: url(images/right-btn.png);")
-        self.rightWorkoutPlanButton.clicked.connect(self.rightWorkoutPlanButtonClicked)
+        self.rightWorkoutPlanButton.setStyleSheet(
+            f"background-image: url(images/right-btn.png);")
+        self.rightWorkoutPlanButton.clicked.connect(
+            self.rightWorkoutPlanButtonClicked)
 
         self.leftWorkoutPlanButton = QPushButton(self)
         self.leftWorkoutPlanButton.setGeometry(QRect(102, 590, 48, 48))
-        self.leftWorkoutPlanButton.setStyleSheet(f"background-image: url(images/left-btn.png);")
-        self.leftWorkoutPlanButton.clicked.connect(self.leftWorkoutPlanButtonClicked)
+        self.leftWorkoutPlanButton.setStyleSheet(
+            f"background-image: url(images/left-btn.png);")
+        self.leftWorkoutPlanButton.clicked.connect(
+            self.leftWorkoutPlanButtonClicked)
 
         # Set up back button from page workout plan
         self.backWPButton = QPushButton(self)
@@ -234,14 +242,16 @@ class DisplayWorkout(QWidget):
         self.headingTop = QLabel(self)
         self.headingTop.setText("Workout Activity")
         self.headingTop.move(60, 120)
-        self.headingTop.setStyleSheet(f"color: {atlantic}; background-color: {bg_color}")
+        self.headingTop.setStyleSheet(
+            f"color: {atlantic}; background-color: {bg_color}")
         self.headingTop.setFont(inter48)
-        
+
         # Set up heading Workout Plan label
         self.headingBottom = QLabel(self)
         self.headingBottom.setText("Workout Plan")
         self.headingBottom.move(60, 500)
-        self.headingBottom.setStyleSheet(f"color: {atlantic}; background-color: {bg_color}")
+        self.headingBottom.setStyleSheet(
+            f"color: {atlantic}; background-color: {bg_color}")
         self.headingBottom.setFont(inter48)
 
         # Set up workout cards with empty set
@@ -249,63 +259,89 @@ class DisplayWorkout(QWidget):
         for i in range(3):
             self.workoutCards.append({})
             self.workoutCards[i]["card"] = QLabel(self)
-            self.workoutCards[i]["card"].setGeometry(QRect(150 + (i * 340), 188, 300, 300))
-            self.workoutCards[i]["card"].setStyleSheet(f"background-color: {bg_color}")
-            self.workoutCards[i]["card"].setPixmap(QPixmap("images/template-yellow-card.png"))
+            self.workoutCards[i]["card"].setGeometry(
+                QRect(150 + (i * 340), 188, 300, 300))
+            self.workoutCards[i]["card"].setStyleSheet(
+                f"background-color: {bg_color}")
+            self.workoutCards[i]["card"].setPixmap(
+                QPixmap("images/template-yellow-card.png"))
             self.workoutCards[i]["cardIllustration"] = QLabel(self)
-            self.workoutCards[i]["cardIllustration"].setGeometry(QRect(240 + (i%3*340), 200, 120, 120))
-            self.workoutCards[i]["cardIllustration"].setStyleSheet(f"background-color: {yellow}")
-            self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap("images/push-up.png"))
+            self.workoutCards[i]["cardIllustration"].setGeometry(
+                QRect(240 + (i % 3*340), 200, 120, 120))
+            self.workoutCards[i]["cardIllustration"].setStyleSheet(
+                f"background-color: {yellow}")
+            self.workoutCards[i]["cardIllustration"].setPixmap(
+                QPixmap("images/push-up.png"))
             self.workoutCards[i]["cardTitle"] = QLabel(self)
-            self.workoutCards[i]["cardTitle"].setGeometry(QRect(172 + (i%3*340), 339, 90, 20))
-            self.workoutCards[i]["cardTitle"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardTitle"].setGeometry(
+                QRect(172 + (i % 3*340), 339, 90, 20))
+            self.workoutCards[i]["cardTitle"].setStyleSheet(
+                f"color: {primary_black}; background-color: {light_yellow}")
             self.workoutCards[i]["cardTitle"].setText("Title")
             self.workoutCards[i]["cardTitle"].setFont(inter16bold)
             self.workoutCards[i]["cardDescription"] = QLabel(self)
             self.workoutCards[i]["cardDescription"].setText("Description")
-            self.workoutCards[i]["cardDescription"].setGeometry(QRect(172 + (i%3*340), 366, 256, 64))
-            self.workoutCards[i]["cardDescription"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardDescription"].setGeometry(
+                QRect(172 + (i % 3*340), 366, 256, 64))
+            self.workoutCards[i]["cardDescription"].setStyleSheet(
+                f"color: {primary_black}; background-color: {light_yellow}")
             self.workoutCards[i]["cardDescription"].setFont(inter10)
             self.workoutCards[i]["cardSpecification"] = QLabel(self)
             self.workoutCards[i]["cardSpecification"].setText("Specification")
-            self.workoutCards[i]["cardSpecification"].setGeometry(QRect(350 + (i*340), 344, 80, 14))
-            self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardSpecification"].setGeometry(
+                QRect(350 + (i*340), 344, 80, 14))
+            self.workoutCards[i]["cardSpecification"].setStyleSheet(
+                f"color: {primary_black}; background-color: {light_yellow}")
             self.workoutCards[i]["cardSpecification"].setFont(inter12)
 
             self.workoutCards[i]["cardAddButton"] = QPushButton(self)
-            self.workoutCards[i]["cardAddButton"].setGeometry(QRect(308 + (i*340), 441, 120, 30))
+            self.workoutCards[i]["cardAddButton"].setGeometry(
+                QRect(308 + (i*340), 441, 120, 30))
             self.workoutCards[i]["cardAddButton"].setText("Add To Activity")
-            self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {dark_yellow}; border: none; border-radius: 12px; font-weight: bold;")
-            self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
+            self.workoutCards[i]["cardAddButton"].setStyleSheet(
+                f"color: #ffffff; background-color: {dark_yellow}; border: none; border-radius: 12px; font-weight: bold;")
+            self.workoutCards[i]["cardAddButton"].clicked.connect(
+                lambda x, i=i: self.addWorkoutCardToActivity(i))
 
             self.workoutCards[i]["cardTutorialButton"] = QPushButton(self)
-            self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((172) + (i*340), 441, 90, 30))
+            self.workoutCards[i]["cardTutorialButton"].setGeometry(
+                QRect((172) + (i*340), 441, 90, 30))
             self.workoutCards[i]["cardTutorialButton"].setText("Tutorial")
-            self.workoutCards[i]["cardTutorialButton"].setStyleSheet(f"color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
-            self.workoutCards[i]["cardTutorialButton"].clicked.connect(lambda x, i=i: self.openTutorial(i))
-        
+            self.workoutCards[i]["cardTutorialButton"].setStyleSheet(
+                f"color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
+            self.workoutCards[i]["cardTutorialButton"].clicked.connect(
+                lambda x, i=i: self.openTutorial(i))
+
         self.workoutPlanCards = []
         for i in range(3):
             self.workoutPlanCards.append({})
             self.workoutPlanCards[i]["card"] = QLabel(self)
-            self.workoutPlanCards[i]["card"].setPixmap(QPixmap("images/template-blue-card.png"))
-            self.workoutPlanCards[i]["card"].setStyleSheet(f"background-color: {bg_color}")
-            self.workoutPlanCards[i]["card"].move(150 + (i%3*340), 568)
+            self.workoutPlanCards[i]["card"].setPixmap(
+                QPixmap("images/template-blue-card.png"))
+            self.workoutPlanCards[i]["card"].setStyleSheet(
+                f"background-color: {bg_color}")
+            self.workoutPlanCards[i]["card"].move(150 + (i % 3*340), 568)
             self.workoutPlanCards[i]["cardTitle"] = QLabel(self)
             self.workoutPlanCards[i]["cardTitle"].setText("Title")
-            self.workoutPlanCards[i]["cardTitle"].move(172 + (i%3*340), 586)
-            self.workoutPlanCards[i]["cardTitle"].setStyleSheet(f"color: {primary_white}; background-color: {grape}")
+            self.workoutPlanCards[i]["cardTitle"].move(172 + (i % 3*340), 586)
+            self.workoutPlanCards[i]["cardTitle"].setStyleSheet(
+                f"color: {primary_white}; background-color: {grape}")
             self.workoutPlanCards[i]["cardTitle"].setFont(inter24bold)
             self.workoutPlanCards[i]["cardDescription"] = QLabel(self)
             self.workoutPlanCards[i]["cardDescription"].setText("Desciption")
-            self.workoutPlanCards[i]["cardDescription"].move(172 + (i%3*340), 620)
-            self.workoutPlanCards[i]["cardDescription"].setStyleSheet(f"color: {primary_white}; background-color: {grape}")
+            self.workoutPlanCards[i]["cardDescription"].move(
+                172 + (i % 3*340), 620)
+            self.workoutPlanCards[i]["cardDescription"].setStyleSheet(
+                f"color: {primary_white}; background-color: {grape}")
             self.workoutPlanCards[i]["cardDescription"].setFont(inter12)
             self.workoutPlanCards[i]["cardSeeMoreButton"] = QPushButton(self)
-            self.workoutPlanCards[i]["cardSeeMoreButton"].setGeometry(QRect(337 + (i*340), 586, 90, 30))
+            self.workoutPlanCards[i]["cardSeeMoreButton"].setGeometry(
+                QRect(337 + (i*340), 586, 90, 30))
             self.workoutPlanCards[i]["cardSeeMoreButton"].setText("See More")
-            self.workoutPlanCards[i]["cardSeeMoreButton"].setStyleSheet(f"color: {primary_white}; background-color: {primary_button}; border: none; border-radius: 12px; font-weight: bold;")
-            self.workoutPlanCards[i]["cardSeeMoreButton"].clicked.connect(lambda x, i=i: self.openWorkoutPlan(i))
+            self.workoutPlanCards[i]["cardSeeMoreButton"].setStyleSheet(
+                f"color: {primary_white}; background-color: {primary_button}; border: none; border-radius: 12px; font-weight: bold;")
+            self.workoutPlanCards[i]["cardSeeMoreButton"].clicked.connect(
+                lambda x, i=i: self.openWorkoutPlan(i))
 
     def setUpDisplayWorkout(self):
         if self.listWorkoutPlan == None:
@@ -317,10 +353,14 @@ class DisplayWorkout(QWidget):
         start = self.pageWorkout*3
         for i in range(3):
             if start+i < len(listWorkout):
-                self.workoutCards[i]["cardTitle"].setText(listWorkout[start+i]["name"])
-                self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap(listWorkout[start+i]["linkIllustration"]))
-                self.workoutCards[i]["cardDescription"].setText(listWorkout[start+i]["description"])
-                self.workoutCards[i]["cardSpecification"].setText(listWorkout[start+i]["specification"])
+                self.workoutCards[i]["cardTitle"].setText(
+                    listWorkout[start+i]["name"])
+                self.workoutCards[i]["cardIllustration"].setPixmap(
+                    QPixmap(listWorkout[start+i]["linkIllustration"]))
+                self.workoutCards[i]["cardDescription"].setText(
+                    listWorkout[start+i]["description"])
+                self.workoutCards[i]["cardSpecification"].setText(
+                    listWorkout[start+i]["specification"])
                 self.workoutCards[i]["card"].show()
                 self.workoutCards[i]["cardIllustration"].show()
                 self.workoutCards[i]["cardTitle"].show()
@@ -341,8 +381,10 @@ class DisplayWorkout(QWidget):
         startWorkoutPlan = self.pageWorkoutPlan*3
         for i in range(3):
             if startWorkoutPlan+i < len(self.workoutPlan):
-                self.workoutPlanCards[i]["cardTitle"].setText(self.workoutPlan[startWorkoutPlan+i]["name"])
-                self.workoutPlanCards[i]["cardDescription"].setText(self.workoutPlan[startWorkoutPlan+i]["description"])
+                self.workoutPlanCards[i]["cardTitle"].setText(
+                    self.workoutPlan[startWorkoutPlan+i]["name"])
+                self.workoutPlanCards[i]["cardDescription"].setText(
+                    self.workoutPlan[startWorkoutPlan+i]["description"])
                 self.workoutPlanCards[i]["card"].show()
                 self.workoutPlanCards[i]["cardTitle"].show()
                 self.workoutPlanCards[i]["cardDescription"].show()
@@ -361,14 +403,14 @@ class DisplayWorkout(QWidget):
     def openTutorial(self, idx):
         idx += self.pageWorkout*3
         webbrowser.open(self.workout[idx]["linkTutorial"])
-    
+
     def openWorkoutPlan(self, idx):
         idx += self.pageWorkoutPlan*3
         # change view to page workout plan
         print("Open workout plan", self.workoutPlan[idx]["name"])
         self.headingTop.setText(self.workoutPlan[idx]["name"])
         self.pageWorkout = 0
-        
+
         # masih data dummy
         listWorkoutPlan = []
         c = self.conn.cursor()
@@ -438,7 +480,7 @@ class DisplayWorkout(QWidget):
             self.setUpDisplayWorkoutPlan()
         else:
             print("No more workout plan")
-    
+
     def backWP(self):
         print("Back Button pressed")
         self.listWorkoutPlan = None
@@ -450,7 +492,7 @@ class DisplayWorkout(QWidget):
         self.backWPButton.hide()
         self.setUpDisplayWorkout()
         self.setUpDisplayWorkoutPlan()
-    
+
     def fetchWorkout(self):
         c = self.conn.cursor()
         c.execute("SELECT * FROM list_olahraga")
@@ -468,7 +510,7 @@ class DisplayWorkout(QWidget):
                 "linkTutorial": workout[5]
             })
         self.workout = dataWorkout
-    
+
     def fetchWorkoutPlan(self, user):
         c = self.conn.cursor()
         c.execute("""
@@ -492,9 +534,10 @@ class DisplayWorkout(QWidget):
     def updateUser(self, user):
         self.user = user
         self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
-    
+
     def logOut(self):
         self.switch.emit("login", {})
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
