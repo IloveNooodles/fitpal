@@ -14,8 +14,21 @@ dark_yellow = '#EEA02B'
 grape = '#7366FE'
 atlantic = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #3eebbe stop:0.0001 #4ec1f3, stop:1 #68fcd6)'
 light_yellow = '#FFD9A0'
+primary_red = '#F10628'
+primary_red_hover = "#f43853"
 btn_color = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);'
 btn_color_hover = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff)'
+back_btn_style = f'''
+      QPushButton {{
+        color: #ffffff;
+        background-color: {primary_red};
+        border: none;
+        border-radius: 12px;
+      }}
+      QPushButton:hover {{
+        background-color: {primary_red_hover};
+      }}
+    '''
 
 class DisplayWorkoutTrainer(QWidget):
     switch = pyqtSignal(str, dict)
@@ -62,35 +75,6 @@ class DisplayWorkoutTrainer(QWidget):
         logo.move(60, 30)
         logo.setStyleSheet(f"background-color: {bg_color}")
 
-        # Set up hello label
-        self.helloLabel = QLabel(self)
-        self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
-        self.helloLabel.move(635, 44)
-        self.helloLabel.setStyleSheet(f'color: rgba(255, 255, 255, 0.8); background-color: {bg_color}')
-        self.helloLabel.setFixedSize(585, 29)
-        self.helloLabel.setAlignment(Qt.AlignmentFlag.AlignRight)
-        self.helloLabel.setFont(inter24)
-
-        # Set up log out button
-        logOutBtn = QPushButton(self)
-        logOutBtn.setText("Log Out")
-        logOutBtn.setStyleSheet(f'''
-        QPushButton {{
-            color: #ffffff;
-            background-color: {btn_color};
-            border: none;
-            border-radius: 12px;
-        }}
-        QPushButton:hover {{
-            background-color: {btn_color_hover};
-        }}
-        ''')
-        logOutBtn.setFixedSize(121, 48)
-        logOutBtn.setFont(inter16)
-        logOutBtn.move(1099, 88)
-        logOutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        logOutBtn.clicked.connect(self.logOut)
-
         # Set up workout cards from workout
         self.initializeWorkoutCards()
         self.setUpDisplayWorkout()
@@ -106,10 +90,19 @@ class DisplayWorkoutTrainer(QWidget):
         self.leftWorkoutButton.setStyleSheet(f"background-image: url(images/left-btn.png);")
         self.leftWorkoutButton.clicked.connect(self.leftWorkoutButtonClicked)
 
+        self.backBtn = QPushButton(self)
+        self.backBtn.setText("Back")
+        self.backBtn.setStyleSheet(back_btn_style)
+        self.backBtn.setFont(inter16)
+        self.backBtn.setFixedSize(121, 45)
+        self.backBtn.move(60, 615)
+        self.backBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.backBtn.clicked.connect(self.trainerDashboard)
+
         self.Add = QPushButton(self)
         self.Add.setText("Add new workout")
-        self.Add.setFixedSize(180, 45)
-        self.Add.move(60, 615)
+        self.Add.setFixedSize(150, 45)
+        self.Add.move(190, 615)
         self.Add.setStyleSheet('''
         QPushButton {
             color: #ffffff;
@@ -122,6 +115,7 @@ class DisplayWorkoutTrainer(QWidget):
         }
         ''')
         self.Add.setFont(inter16)
+        self.backBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.Add.clicked.connect(self.addWorkout)
         
     def initializeWorkoutCards(self):
@@ -249,7 +243,9 @@ class DisplayWorkoutTrainer(QWidget):
     
     def updateUser(self, user):
         self.user = user
-        self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
+    
+    def trainerDashboard(self):
+        self.switch.emit("trainer_dashboard", self.user)
     
     def logOut(self):
         self.switch.emit("login", {})
