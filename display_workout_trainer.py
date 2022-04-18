@@ -220,22 +220,14 @@ class DisplayWorkoutTrainer(QWidget):
     
 
     def rightWorkoutButtonClicked(self):
-        print("Right workout button clicked")
-        if (self.pageWorkout + 1 < (len(self.workout)//3)):
+        if (self.pageWorkout < (len(self.workout)//3)):
             self.pageWorkout += 1
-            print("page: ", self.pageWorkout)
             self.setUpDisplayWorkout()
-        else:
-            print("No more workout")
 
     def leftWorkoutButtonClicked(self):
-        print("Left workout button clicked")
         if (self.pageWorkout > 0):
             self.pageWorkout -= 1
-            print("page: ", self.pageWorkout)
             self.setUpDisplayWorkout()
-        else:
-            print("No more workout")
     
     def fetchWorkout(self):
         c = self.conn.cursor()
@@ -254,7 +246,6 @@ class DisplayWorkoutTrainer(QWidget):
                 "linkTutorial": workout[5]
             })
         self.workout = dataWorkout
-    
     
     def updateUser(self, user):
         self.user = user
