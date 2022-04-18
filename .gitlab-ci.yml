@@ -1,0 +1,54 @@
+image: python:3.9
+
+before_script:
+  - python --version  # For debugging
+  - pip3 install isort black flake8 pylint pytest
+
+stages:
+    - linting
+    - test
+
+isort:
+    stage: linting
+    tags: 
+        - rpl
+    script:
+        - python -m isort . --check-only
+    only:
+        - merge_request
+
+black:
+    stage: linting
+    tags: 
+        - rpl
+    script:
+        - python -m black --check .
+    only:
+        - merge_request
+
+flake8:
+    stage: linting
+    tags: 
+        - rpl
+    script:
+        - python -m flake8 .
+    only:
+        - merge_request
+
+pylint:
+    stage: linting
+    tags: 
+        - rpl
+    script:
+        - python -m pylint src
+    only:
+        - merge_request
+
+pytest:
+    stage: test
+    tags:
+        - rpl
+    script:
+        - pytest
+    only:
+        - merge_request
