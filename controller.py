@@ -7,6 +7,7 @@ from dashboard_user import UserDashboard
 from dashboard_trainer import TrainerDashboard
 from add_workout import trainer_AddWorkout
 from display_workout import DisplayWorkout
+from display_workout_trainer import DisplayWorkoutTrainer
 
 class Controller:
   def __init__(self):
@@ -23,6 +24,8 @@ class Controller:
     self.addWorkout.switch.connect(self.fromAddWorkout)
     self.displayWorkout = DisplayWorkout()
     self.displayWorkout.switch.connect(self.fromDisplayWorkout)
+    self.displayWorkoutTrainer = DisplayWorkoutTrainer()
+    self.displayWorkoutTrainer.switch.connect(self.fromDisplayWorkoutTrainer)
     pass
 
   def start(self):
@@ -62,6 +65,9 @@ class Controller:
     elif page == "add_workout":
       self.addWorkout.updateUser(user)
       self.addWorkout.show()
+    elif page == "display_workout":
+      self.displayWorkoutTrainer.updateUser(user)
+      self.displayWorkoutTrainer.show()
   
   def fromAddWorkout(self, page, user):
     self.addWorkout.close()
@@ -71,6 +77,7 @@ class Controller:
     elif page == "trainer_dashboard":
       self.trainerDashboard.updateUser(user)
       self.trainerDashboard.show()
+
   def fromDisplayWorkout(self, page, user):
     self.displayWorkout.close()
     if page == "login":
@@ -79,9 +86,19 @@ class Controller:
     elif page == "user_dashboard":
       self.userDashboard.updateUser(user)
       self.userDashboard.show()
-
-
   
+  def fromDisplayWorkoutTrainer(self, page, user):
+    self.displayWorkoutTrainer.close()
+    if page == "login":
+      self.loginWindow.clearForm()
+      self.loginWindow.show()
+    elif page == "trainer_dashboard":
+      self.trainerDashboard.updateUser(user)
+      self.trainerDashboard.show()
+    elif page == "add_workout":
+      self.addWorkout.updateUser(user)
+      self.addWorkout.show()
+
   def initializeDatabase(self):
     self.conn = sqlite3.connect("fitpal.db")
     c = self.conn.cursor()
