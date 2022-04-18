@@ -26,7 +26,7 @@ flake8:
 pylint:
     stage: linting
     script:
-        - python -m pylint src
+        - python -m pylint -d W0201 R0915 R0902 C0103 C0301 C0325 src
 
 pytest:
     stage: test
