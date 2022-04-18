@@ -67,12 +67,12 @@ class RegisterWindow(QWidget):
         self.nameEdit.setFixedSize(466, 46)
         self.nameEdit.setFont(inter16)
         self.nameEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.nameEdit.move(407, 194)
 
         # Username input
@@ -81,12 +81,12 @@ class RegisterWindow(QWidget):
         self.unameEdit.setFixedSize(466, 46)
         self.unameEdit.setFont(inter16)
         self.unameEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.unameEdit.move(407, 255)
 
         # Email input
@@ -95,12 +95,12 @@ class RegisterWindow(QWidget):
         self.emailEdit.setFixedSize(466, 46)
         self.emailEdit.setFont(inter16)
         self.emailEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.emailEdit.move(407, 316)
 
         # Password input
@@ -109,12 +109,12 @@ class RegisterWindow(QWidget):
         self.passwordEdit.setFixedSize(466, 46)
         self.passwordEdit.setFont(inter16)
         self.passwordEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.passwordEdit.move(407, 377)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
@@ -149,16 +149,16 @@ class RegisterWindow(QWidget):
         self.registerButton.setFixedSize(183, 48)
         self.registerButton.move(548, 523)
         self.registerButton.setStyleSheet('''
-      QPushButton {
-        color: #ffffff;
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);
-        border: none;
-        border-radius: 12px;
-      }
-      QPushButton:hover {
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff);
-      }
-    ''')
+        QPushButton {
+            color: #ffffff;
+            background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);
+            border: none;
+            border-radius: 12px;
+        }
+        QPushButton:hover {
+            background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff);
+        }
+        ''')
         self.registerButton.setFont(inter16)
         self.registerButton.setCursor(
             QCursor(Qt.CursorShape.PointingHandCursor))
@@ -177,15 +177,15 @@ class RegisterWindow(QWidget):
         logIn.setText("Log in")
         logIn.setFont(inter16)
         logIn.setStyleSheet('''
-      QLabel {
-        color: #3EEBBE; 
-        text-decoration: underline; 
-        background-color: #3E405B
-      }
-      QLabel:hover {
-        color: #68FCD6;
-      }
-    '''
+        QLabel {
+            color: #3EEBBE; 
+            text-decoration: underline; 
+            background-color: #3E405B
+        }
+        QLabel:hover {
+            color: #68FCD6;
+        }
+        '''
                             )
         logIn.move(616, 609)
         logIn.clicked.connect(self.showLoginWindow)
@@ -248,11 +248,11 @@ class RegisterWindow(QWidget):
             return
         if (self.rbUser.isChecked()):
             c.execute(
-                f"INSERT INTO user VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'user')")
+                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'user')")
             self.conn.commit()
         else:
             c.execute(
-                f"INSERT INTO user VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'trainer')")
+                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'trainer')")
             self.conn.commit()
         # Tunjukkan registrasi berhasil
         msgBox = QMessageBox()

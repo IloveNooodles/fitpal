@@ -198,24 +198,7 @@ class LoginWindow(QWidget):
             if (res[5] == "user"):
                 self.switch.emit("user_dashboard", user)
             else:
-                msgBox = QMessageBox()
-                msgBox.setText(f"<p>Hello, {res[0]}!</p>")
-                msgBox.setWindowTitle("Login Successful")
-                msgBox.setIcon(QMessageBox.Icon.Information)
-                msgBox.setStyleSheet("background-color: white")
-                msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
-                msgBox.exec()
-                user = {
-                    "fullname": res[0],
-                    "username": res[1],
-                    "email": res[2],
-                    "password": res[3],
-                    "type": res[4]
-                }
-                if (res[4] == "user"):
-                    self.switch.emit("user_dashboard", user)
-                else:
-                    self.switch.emit("trainer_dashboard", user)
+                self.switch.emit("trainer_dashboard", user)
 
     def clearForm(self):
         self.passwordEdit.clear()

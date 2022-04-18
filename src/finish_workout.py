@@ -4,7 +4,6 @@ import webbrowser
 from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
 from PyQt6.QtGui import QFont, QPixmap, QCursor, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWebEngineWidgets import QWebEngineView
 # defined style
 bg_color = '#28293D'
 atlantic = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #3eebbe stop:0.0001 #4ec1f3, stop:1 #68fcd6)'
@@ -83,7 +82,7 @@ history_list = [
 ]
 
 
-class finish_workout(QWidget):
+class FinishWorkout(QWidget):
     switch = pyqtSignal(str, dict)
 
     def __init__(self, user=None):
@@ -322,6 +321,6 @@ class finish_workout(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = finish_workout()
+    window = FinishWorkout()
     window.show()
     sys.exit(app.exec())

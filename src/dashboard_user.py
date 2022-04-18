@@ -181,7 +181,7 @@ class UserDashboard(QWidget):
         self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
 
     def finish_workout(self):
-        self.switch.emit("finish_workout", {})
+        self.switch.emit("finish_workout", self.user)
 
     def logOut(self):
         self.switch.emit("login", {})

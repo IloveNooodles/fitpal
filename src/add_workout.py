@@ -239,7 +239,7 @@ class trainer_AddWorkout(QWidget):
     self.Add.clicked.connect(self.addWorkout)
 
   def addWorkout(self):
-    if (self.title.text() == '' or self.specification.text() == '' or self.desc.text() == '' or self.illustration.text() == '' or self.Tutorial.text() == ''):
+    if (self.title.text() == '' or self.specification.text() == '' or self.desc.toPlainText() == '' or self.illustration.text() == '' or self.Tutorial.text() == ''):
       msgBox = QMessageBox()
       msgBox.setText("<p>Please fill out the form properly!</p>")
       msgBox.setWindowTitle("Add New Workout Failed")
@@ -259,7 +259,7 @@ class trainer_AddWorkout(QWidget):
       msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
       msgBox.exec()
       return
-    c.execute(f"INSERT INTO list_olahraga (name, description, specification, linkIllustration, linkTutorial, forUser) VALUES ('{self.title.text()}', '{self.desc.text()}', '{self.specification.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}', NULL)")
+    c.execute(f"INSERT INTO list_olahraga (name, description, specification, linkIllustration, linkTutorial, forUser) VALUES ('{self.title.text()}', '{self.desc.toPlainText()}', '{self.specification.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}', NULL)")
     self.conn.commit()
   # Tunjukkan registrasi berhasil
     msgBox = QMessageBox()
