@@ -117,6 +117,7 @@ class TrainerDashboard(QWidget):
     goSeeWorkoutBtn.setFont(inter16)
     goSeeWorkoutBtn.move(211, 532)
     goSeeWorkoutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+    goSeeWorkoutBtn.clicked.connect(self.displayWorkout)
     # Set up gum card
     gHeading = QLabel(self)
     gHeading.setText("Add a new workout")
@@ -145,6 +146,7 @@ class TrainerDashboard(QWidget):
     goAddWorkoutBtn.setFont(inter16)
     goAddWorkoutBtn.move(654, 532)
     goAddWorkoutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+    goAddWorkoutBtn.clicked.connect(self.addWorkout)
     # Set up log out button
     logOutBtn = QPushButton(self)
     logOutBtn.setText("Log Out")
@@ -169,6 +171,12 @@ class TrainerDashboard(QWidget):
     self.user = user
     self.helloLabel.setText(f"Hello, {self.user['fullname']}!")
 
+  def addWorkout(self):
+    self.switch.emit("add_workout", self.user)
+  
+  def displayWorkout(self):
+    self.switch.emit("display_workout", self.user)
+    
   def logOut(self):
     self.switch.emit("login", {})
 

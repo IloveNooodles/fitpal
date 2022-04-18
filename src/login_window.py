@@ -172,21 +172,23 @@ class LoginWindow(QWidget):
         msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
         msgBox.exec()
     else:
+        print(res)
         msgBox = QMessageBox()
-        msgBox.setText(f"<p>Hello, {res[0]}!</p>")
+        msgBox.setText(f"<p>Hello, {res[1]}!</p>")
         msgBox.setWindowTitle("Login Successful")
         msgBox.setIcon(QMessageBox.Icon.Information)
         msgBox.setStyleSheet("background-color: white")
         msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
         msgBox.exec()
         user = {
-          "fullname": res[0],
-          "username": res[1],
-          "email": res[2],
-          "password": res[3],
-          "type": res[4]
+          "id": res[0],
+          "fullname": res[1],
+          "username": res[2],
+          "email": res[3],
+          "password": res[4],
+          "type": res[5]
         }
-        if (res[4] == "user"):
+        if (res[5] == "user"):
           self.switch.emit("user_dashboard", user)
         else:
           self.switch.emit("trainer_dashboard", user)

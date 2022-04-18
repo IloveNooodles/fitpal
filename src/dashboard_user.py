@@ -117,6 +117,7 @@ class UserDashboard(QWidget):
     goSeeWorkoutBtn.setFont(inter16)
     goSeeWorkoutBtn.move(211, 532)
     goSeeWorkoutBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+    goSeeWorkoutBtn.clicked.connect(self.seeWorkout)
     # Set up purple card
     pHeading = QLabel(self)
     pHeading.setText("Add completed workout(s)")
@@ -171,6 +172,9 @@ class UserDashboard(QWidget):
 
   def logOut(self):
     self.switch.emit("login", {})
+    
+  def seeWorkout(self):
+    self.switch.emit("display_workout", self.user)
 
 if __name__ == "__main__":
   app = QApplication(sys.argv)
