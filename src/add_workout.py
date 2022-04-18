@@ -1,6 +1,6 @@
 import sys
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QRadioButton, QMessageBox
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QTextEdit, QMessageBox
 from PyQt6.QtGui import QFont, QPixmap, QCursor
 from PyQt6.QtCore import Qt, pyqtSignal
 from custom_widgets import ClickableLabel
@@ -171,7 +171,7 @@ class trainer_AddWorkout(QWidget):
     desc.move(660,240)
     desc.setStyleSheet(f"color: {white}; background-color: {bg_color}")
     desc.setFont(inter18)
-    self.desc = QLineEdit(self)
+    self.desc = QTextEdit(self)
     self.desc.setFixedSize(540, 150)
     self.desc.move(660, 270)
     self.desc.setStyleSheet('''
