@@ -259,7 +259,7 @@ class trainer_AddWorkout(QWidget):
       msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
       msgBox.exec()
       return
-    c.execute(f"INSERT INTO list_olahraga (name, description, specification, linkIllustration, linkTutorial) VALUES ('{self.title.text()}', '{self.desc.text()}', '{self.specification.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}', NULL)")
+    c.execute(f"INSERT INTO list_olahraga (name, description, specification, linkIllustration, linkTutorial, forUser) VALUES ('{self.title.text()}', '{self.desc.text()}', '{self.specification.text()}', '{self.illustration.text()}', '{self.Tutorial.text()}', NULL)")
     self.conn.commit()
   # Tunjukkan registrasi berhasil
     msgBox = QMessageBox()
