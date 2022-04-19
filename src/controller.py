@@ -9,7 +9,7 @@ from dashboard_trainer import TrainerDashboard
 from add_workout import trainer_AddWorkout
 from display_workout import DisplayWorkout
 from display_workout_trainer import DisplayWorkoutTrainer
-from finish_workout import FinishWorkout
+from workout_history import WorkoutHistory
 from add_history import addHistory
 
 class Controller:
@@ -29,8 +29,8 @@ class Controller:
         self.displayWorkout.switch.connect(self.fromDisplayWorkout)
         self.displayWorkoutTrainer = DisplayWorkoutTrainer()
         self.displayWorkoutTrainer.switch.connect(self.fromDisplayWorkoutTrainer)
-        self.finishWorkout = FinishWorkout()
-        self.finishWorkout.switch.connect(self.fromFinishWorkout)
+        self.workoutHistory = WorkoutHistory()
+        self.workoutHistory.switch.connect(self.fromWorkoutHistory)
         self.addHistory = addHistory()
         self.addHistory.switch.connect(self.fromAddHistory)
         pass
@@ -64,8 +64,9 @@ class Controller:
             self.displayWorkout.updateUser(user)
             self.displayWorkout.show()
         elif page == "finish_workout":
-            self.finishWorkout.updateUser(user)
-            self.finishWorkout.show()
+            self.workoutHistory.updateUser(user)
+            self.workoutHistory.updateWorkoutHistory()
+            self.workoutHistory.show()
 
     def fromTrainerDashboard(self, page, user):
         self.trainerDashboard.close()
@@ -109,8 +110,8 @@ class Controller:
             self.addWorkout.updateUser(user)
             self.addWorkout.show()
 
-    def fromFinishWorkout(self, page, user):
-        self.finishWorkout.close()
+    def fromWorkoutHistory(self, page, user):
+        self.workoutHistory.close()
         if page == "user_dashboard":
             self.userDashboard.updateUser(user)
             self.userDashboard.show()
@@ -120,9 +121,10 @@ class Controller:
     
     def fromAddHistory(self, page, user):
         self.addHistory.close()
-        if page == "finish_workout":
-            self.finishWorkout.updateUser(user)
-            self.finishWorkout.show()
+        if page == "workout_history":
+            self.workoutHistory.updateUser(user)
+            self.workoutHistory.updateWorkoutHistory()
+            self.workoutHistory.show()
             
     def initializeDatabase(self):
         self.conn = sqlite3.connect("fitpal.db")

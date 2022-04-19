@@ -117,7 +117,7 @@ class trainer_AddWorkout(QWidget):
     title.setStyleSheet(f"color: {white}; background-color: {bg_color}")
     title.setFont(inter18)
     self.title = QLineEdit(self)
-    self.title.setPlaceholderText("Long run")
+    self.title.setPlaceholderText("Example: Long run")
     self.title.setFixedSize(465, 45)
     self.title.move(60, 270)
     self.title.setStyleSheet('''
@@ -136,7 +136,7 @@ class trainer_AddWorkout(QWidget):
     specification.setStyleSheet(f"color: {white}; background-color: {bg_color}")
     specification.setFont(inter18)
     self.specification = QLineEdit(self)
-    self.specification.setPlaceholderText("10 km/5 minutes/ 20 repetition")
+    self.specification.setPlaceholderText("Example:  10 km / 5 minutes / 20 repetition")
     self.specification.setFixedSize(465, 45)
     self.specification.move(60, 375)
     self.specification.setStyleSheet('''
@@ -154,7 +154,7 @@ class trainer_AddWorkout(QWidget):
     Tutorial.setStyleSheet(f"color: {white}; background-color: {bg_color}")
     Tutorial.setFont(inter18)
     self.Tutorial = QLineEdit(self)
-    self.Tutorial.setPlaceholderText("https://bit.ly/someLinkHere")
+    self.Tutorial.setPlaceholderText("Example: https://bit.ly/someLinkHere")
     self.Tutorial.setFixedSize(465, 45)
     self.Tutorial.move(60, 480)
     self.Tutorial.setStyleSheet('''
@@ -189,7 +189,7 @@ class trainer_AddWorkout(QWidget):
     illustration.setStyleSheet(f"color: {white}; background-color: {bg_color}")
     illustration.setFont(inter18)
     self.illustration = QLineEdit(self)
-    self.illustration.setPlaceholderText("https://bit.ly/someLinkHere")
+    self.illustration.setPlaceholderText("Example: https://bit.ly/someLinkHere")
     self.illustration.setFixedSize(465, 45)
     self.illustration.move(660, 480)
     self.illustration.setStyleSheet('''

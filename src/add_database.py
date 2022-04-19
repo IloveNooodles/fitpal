@@ -47,10 +47,11 @@ conn.execute("""
 conn.execute("""
     CREATE TABLE IF NOT EXISTS workout_history (
       history_id integer PRIMARY KEY AUTOINCREMENT,
+      user_id integer,
       olahraga_id integer,
+      name text,
       specification text,
-      date text,
-      FOREIGN KEY(olahraga_id) REFERENCES list_olahraga(olahraga_id)
+      date text
     )
   """)
 conn.execute("""
@@ -81,16 +82,6 @@ conn.execute("""
         (1, 6, False),
         (2, 4, False),
         (2, 7, False)
-""")
-conn.execute("""
-    INSERT INTO workout_history (olahraga_id, specification, date) 
-    VALUES
-    (1, '10 Repetition', '06 January 2022'),
-    (2, '20 Repetition', '07 February 2022'),
-    (3, '30 Repetition', '08 March 2022'),
-    (4, '10 Repetition', '10 November 2022'),
-    (5, '70 kg', '11 October 2022'),
-    (6, '10 meters', '12 December 2022')
 """)
 
 conn.commit()

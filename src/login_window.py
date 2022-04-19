@@ -60,9 +60,9 @@ class LoginWindow(QWidget):
         loginText = QLabel(self)
         loginText.setText("Log in to your account")
         loginText.setStyleSheet('''
-      color: rgba(255, 255, 255, 80%);
-      background-color: #3E405B
-    ''')
+        color: rgba(255, 255, 255, 80%);
+        background-color: #3E405B
+        ''')
         loginText.move(512, 227)
         loginText.setFont(inter24)
 
@@ -72,12 +72,12 @@ class LoginWindow(QWidget):
         self.usernameEdit.setFixedSize(446, 46)
         self.usernameEdit.move(407, 293)
         self.usernameEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.usernameEdit.setFont(inter16)
 
         # Input password
@@ -86,12 +86,12 @@ class LoginWindow(QWidget):
         self.passwordEdit.setFixedSize(446, 46)
         self.passwordEdit.move(407, 354)
         self.passwordEdit.setStyleSheet('''
-      padding: 11px 30px 11px 30px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 20px;
-      color: rgba(255, 255, 255, 0.8);
-      background-color: #3E405B
-    ''')
+        padding: 11px 30px 11px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: #3E405B
+        ''')
         self.passwordEdit.setFont(inter16)
         self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
@@ -101,16 +101,16 @@ class LoginWindow(QWidget):
         self.loginButton.setFixedSize(183, 48)
         self.loginButton.move(548, 430)
         self.loginButton.setStyleSheet('''
-      QPushButton {
-        color: #ffffff;
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);
-        border: none;
-        border-radius: 12px;
-      }
-      QPushButton:hover {
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff);
-      }
-    ''')
+        QPushButton {
+          color: #ffffff;
+          background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);
+          border: none;
+          border-radius: 12px;
+        }
+        QPushButton:hover {
+          background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff);
+        }
+        ''')
         self.loginButton.setFont(inter16)
         self.loginButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.loginButton.clicked.connect(self.login)
@@ -128,16 +128,15 @@ class LoginWindow(QWidget):
         registerHere.setText("Register here")
         registerHere.setFont(inter16)
         registerHere.setStyleSheet('''
-      QLabel {
-        color: #3EEBBE; 
-        text-decoration: underline; 
-        background-color: #3E405B
-      }
-      QLabel:hover {
-        color: #68FCD6;
-      }
-    '''
-                                   )
+        QLabel {
+          color: #3EEBBE; 
+          text-decoration: underline; 
+          background-color: #3E405B
+        }
+        QLabel:hover {
+          color: #68FCD6;
+        }
+        ''')
         registerHere.move(587, 529)
         registerHere.clicked.connect(self.showRegisterWindow)
         registerHere.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))

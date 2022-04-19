@@ -198,17 +198,18 @@ class DisplayWorkout(QWidget):
             self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardSpecification"].setFont(inter12)
 
-            self.workoutCards[i]["cardAddButton"] = QPushButton(self)
-            self.workoutCards[i]["cardAddButton"].setGeometry(QRect(308 + (i*340), 441, 120, 30))
-            self.workoutCards[i]["cardAddButton"].setText("Add To Activity")
-            self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {DARK_YELLOW}; border: none; border-radius: 12px; font-weight: bold;")
-            self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
+            # self.workoutCards[i]["cardAddButton"] = QPushButton(self)
+            # self.workoutCards[i]["cardAddButton"].setGeometry(QRect(308 + (i*340), 441, 120, 30))
+            # self.workoutCards[i]["cardAddButton"].setText("Add to activity")
+            # self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {DARK_YELLOW}; border: none; border-radius: 12px; font-weight: bold;")
+            # self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
 
             self.workoutCards[i]["cardTutorialButton"] = QPushButton(self)
             self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((172) + (i*340), 441, 90, 30))
             self.workoutCards[i]["cardTutorialButton"].setText("Tutorial")
             self.workoutCards[i]["cardTutorialButton"].setStyleSheet("color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
             self.workoutCards[i]["cardTutorialButton"].clicked.connect(lambda x, i=i: self.openTutorial(i))
+            self.workoutCards[i]["cardTutorialButton"].setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.workoutPlanCards = []
         for i in range(3):
@@ -252,7 +253,7 @@ class DisplayWorkout(QWidget):
                 self.workoutCards[i]["cardTitle"].show()
                 self.workoutCards[i]["cardDescription"].show()
                 self.workoutCards[i]["cardSpecification"].show()
-                self.workoutCards[i]["cardAddButton"].show()
+                # self.workoutCards[i]["cardAddButton"].show()
                 self.workoutCards[i]["cardTutorialButton"].show()
             else:
                 self.workoutCards[i]["card"].hide()
@@ -260,7 +261,7 @@ class DisplayWorkout(QWidget):
                 self.workoutCards[i]["cardTitle"].hide()
                 self.workoutCards[i]["cardDescription"].hide()
                 self.workoutCards[i]["cardSpecification"].hide()
-                self.workoutCards[i]["cardAddButton"].hide()
+                # self.workoutCards[i]["cardAddButton"].hide()
                 self.workoutCards[i]["cardTutorialButton"].hide()
 
         if self.pageWorkout == 0:
@@ -293,7 +294,7 @@ class DisplayWorkout(QWidget):
             self.noWorkoutPlan.show()
         else:
             self.noWorkoutPlan.hide()
-            
+
         if self.pageWorkoutPlan == 0:
             self.leftWorkoutPlanButton.hide()
         else:
@@ -304,10 +305,10 @@ class DisplayWorkout(QWidget):
         else:
             self.rightWorkoutPlanButton.hide()
 
-    def addWorkoutCardToActivity(self, idx):
-        idx += self.pageWorkout*3
-        print("add", self.workout[idx]["name"], "to activity")
-        # add workout to history
+    # def addWorkoutCardToActivity(self, idx):
+    #     idx += self.pageWorkout*3
+    #     print("add", self.workout[idx]["name"], "to activity")
+    #     # add workout to history
 
     def openTutorial(self, idx):
         idx += self.pageWorkout*3

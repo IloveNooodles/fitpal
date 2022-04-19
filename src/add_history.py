@@ -127,7 +127,7 @@ class addHistory(QWidget):
             f"color: {white}; background-color: {bg_color}")
         self.title_input.setFont(inter16)
         self.title_input = QLineEdit(self)
-        self.title_input.setPlaceholderText("Push up / Sit Up")
+        self.title_input.setPlaceholderText("Example: Push up / Sit Up")
         self.title_input.setFixedSize(465, 45)
         self.title_input.move(400, 280)
         self.title_input.setStyleSheet('''
@@ -149,7 +149,7 @@ class addHistory(QWidget):
         self.specification.setFont(inter16)
         self.specification = QLineEdit(self)
         self.specification.setPlaceholderText(
-            "10 km / 5 minutes / 20 repetition")
+            "Example: 10 km / 5 minutes / 20 repetition")
         self.specification.setFixedSize(465, 45)
         self.specification.move(400, 385)
         self.specification.setStyleSheet('''
@@ -170,7 +170,7 @@ class addHistory(QWidget):
             f"color: {white}; background-color: {bg_color}")
         self.date.setFont(inter16)
         self.date = QLineEdit(self)
-        self.date.setPlaceholderText("05 January 2022, 01 March 2021")
+        self.date.setPlaceholderText("Example: 05 January 2022, 01 March 2021")
         self.date.setFixedSize(465, 45)
         self.date.move(400, 480)
         self.date.setStyleSheet('''
@@ -191,7 +191,7 @@ class addHistory(QWidget):
         self.backBtn.setFixedSize(121, 48)
         self.backBtn.move(60, 627)
         self.backBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.backBtn.clicked.connect(self.FinishWorkout)
+        self.backBtn.clicked.connect(self.toWorkoutHistory)
         # end of button
 
         # add new workout btn
@@ -199,7 +199,7 @@ class addHistory(QWidget):
         self.addBtn.setText("Add to history")
         self.addBtn.setStyleSheet(logout_btn_style)
         self.addBtn.setFont(inter16)
-        self.addBtn.setFixedSize(121, 48)
+        self.addBtn.setFixedSize(156, 48)
         self.addBtn.move(190, 627)
         self.addBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.addBtn.clicked.connect(self.addHistory)
@@ -220,22 +220,11 @@ class addHistory(QWidget):
         c = self.conn.cursor()
         c.execute(f"SELECT * FROM list_olahraga WHERE name = '{self.title_input.text()}'")
         res = c.fetchall()
-        print(self.title_input.text(), self.specification.text(), self.date.text())
-        if(self.title_input.text() == "Push Up"):
-            print("takbir")
-        #klo gak ketemu
         if(res == None or res == []):
-            self.msgBox = QMessageBox()
-            self.msgBox.setText("No such workout exists!")
-            self.msgBox.setIcon(QMessageBox.Icon.Warning)
-            self.msgBox.setStyleSheet("background-color: white")
-            self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
-            self.msgBox.exec()
-            return
-        print(res)
-        print(res[0][0])
-        #klo ketemu res nyimpen idnya berart olahraganya ada tinggal insert
-        c.execute(f"INSERT INTO workout_history (olahraga_id, specification, date) VALUES ({res[0][0]}, '{self.specification.text()}', '{self.date.text()}')")
+            # Olahraganya tidak ada
+            c.execute(f"INSERT INTO workout_history (user_id, olahraga_id, name, specification, date) VALUES ({self.user['id']}, -1, '{self.title_input.text()}', '{self.specification.text()}', '{self.date.text()}')")
+        else:
+            c.execute(f"INSERT INTO workout_history (user_id, olahraga_id, specification, date) VALUES ({self.user['id']}, {res[0][0]}, '{self.specification.text()}', '{self.date.text()}')")
         
         #close connection and clear
         self.conn.commit()
@@ -252,11 +241,10 @@ class addHistory(QWidget):
         self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
         self.msgBox.exec()
 
-    def fetchHistory(self):
-        self.history = history_list
+        self.toWorkoutHistory()
 
-    def FinishWorkout(self):
-        self.switch.emit("finish_workout", self.user)
+    def toWorkoutHistory(self):
+        self.switch.emit("workout_history", self.user)
 
 
 if __name__ == "__main__":
