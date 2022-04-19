@@ -1,9 +1,9 @@
 import sys
 import sqlite3
-import webbrowser
-from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QLineEdit, QMessageBox
+from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QLineEdit, QMessageBox, QDateEdit
 from PyQt6.QtGui import QFont, QPixmap, QCursor, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal
+from datetime import date
 
 # defined style
 bg_color = '#28293D'
@@ -133,7 +133,6 @@ class addHistory(QWidget):
         self.title_input.setStyleSheet('''
           padding: 11px 30px 11px 30px;
           border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 20px;
           color: rgba(255, 255, 255, 0.8);
           background-color: #3E405B
         ''')
@@ -155,7 +154,6 @@ class addHistory(QWidget):
         self.specification.setStyleSheet('''
           padding: 11px 30px 11px 30px;
           border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 20px;
           color: rgba(255, 255, 255, 0.8);
           background-color: #3E405B
         ''')
@@ -169,18 +167,19 @@ class addHistory(QWidget):
         self.date.setStyleSheet(
             f"color: {white}; background-color: {bg_color}")
         self.date.setFont(inter16)
-        self.date = QLineEdit(self)
-        self.date.setPlaceholderText("Example: 05 January 2022, 01 March 2021")
+        self.date = QDateEdit(self)
+        # self.date.setPlaceholderText("Example: 05 January 2022, 01 March 2021")
         self.date.setFixedSize(465, 45)
         self.date.move(400, 480)
         self.date.setStyleSheet('''
           padding: 11px 30px 11px 30px;
           border: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: 20px;
           color: rgba(255, 255, 255, 0.8);
           background-color: #3E405B
         ''')
         self.date.setFont(inter16)
+        self.date.setDate(date.today())
+        self.date.setDisplayFormat("yyyy-MM-dd")
         # end of date input
 
         # back button

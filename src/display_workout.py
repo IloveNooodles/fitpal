@@ -211,6 +211,7 @@ class DisplayWorkout(QWidget):
             self.workoutCards[i]["cardAddButton"].setText("Add to activity")
             self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {DARK_YELLOW}; border: none; border-radius: 12px; font-weight: bold;")
             self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
+            self.workoutCards[i]["cardAddButton"].setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
             self.workoutCards[i]["cardTutorialButton"] = QPushButton(self)
             self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((172) + (i*340), 441, 90, 30))
