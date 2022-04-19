@@ -183,7 +183,6 @@ class LoginWindow(QWidget):
             msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
             msgBox.exec()
         else:
-            print(res)
             msgBox = QMessageBox()
             msgBox.setText(f"<p>Hello, {res[1]}!</p>")
             msgBox.setWindowTitle("Login Successful")

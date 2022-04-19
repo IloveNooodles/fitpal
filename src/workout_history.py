@@ -29,41 +29,6 @@ class WorkoutHistory(QWidget):
         "password": "johndoe",
         "type": "user"
       }
-    # Untuk debug
-    # self.history = [
-    #   {
-    #     "history_id": 1,
-    #     "user_id": -1,
-    #     "olahraga_id": 1,
-    #     "name": "N/A",
-    #     "specification": "10 reps",
-    #     "date": "9 April 2022"
-    #   },
-    #   {
-    #     "history_id": 2,
-    #     "user_id": -1,
-    #     "olahraga_id": 2,
-    #     "name": "N/A",
-    #     "specification": "20 reps",
-    #     "date": "12 April 2022"
-    #   },
-    #   {
-    #     "history_id": 3,
-    #     "user_id": -1,
-    #     "olahraga_id": 4,
-    #     "name": "N/A",
-    #     "specification": "50 reps",
-    #     "date": "9 April 2022"
-    #   },
-    #   {
-    #     "history_id": 4,
-    #     "user_id": -1,
-    #     "olahraga_id": -1,
-    #     "name": "Hoops",
-    #     "specification": "10 reps",
-    #     "date": "9 April 2022"
-    #   }
-    # ]
     self.conn = sqlite3.connect("fitpal.db")
     self.fetchWorkoutHistory()
     self.currPage = 0
@@ -78,9 +43,7 @@ class WorkoutHistory(QWidget):
     FROM workout_history
     WHERE user_id = {self.user["id"]}
     """)
-    print(self.user["id"])
     res = c.fetchall()
-    print(f'fetchWorkoutHistory: {res}')
     for r in res:
       d = {
         "history_id": r[0],
