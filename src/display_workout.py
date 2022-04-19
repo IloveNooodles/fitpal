@@ -2,8 +2,9 @@ import sys
 import sqlite3
 import webbrowser
 from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
-from PyQt6.QtGui import QFont, QPixmap, QCursor
+from PyQt6.QtGui import QFont, QPixmap, QCursor, QImage
 from PyQt6.QtCore import Qt, pyqtSignal, QRect
+import requests
 
 BG_COLOR = '#28293D'
 PRIMARY_BLACK = '#000000'
@@ -251,7 +252,14 @@ class DisplayWorkout(QWidget):
         for i in range(3):
             if start+i < len(listWorkout):
                 self.workoutCards[i]["cardTitle"].setText(listWorkout[start+i]["name"])
-                self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap(listWorkout[start+i]["linkIllustration"]))
+                if (listWorkout[start+i]["linkIllustration"][:4] == "http"):
+                    pixmap = QPixmap()
+                    request = requests.get(listWorkout[start+i]["linkIllustration"])
+                    pixmap.loadFromData(request.content)
+                    pixmap.scaledToHeight(120)
+                    self.workoutCards[i]["cardIllustration"].setPixmap(pixmap.scaledToHeight(120))
+                else:
+                    self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap(listWorkout[start+i]["linkIllustration"]))
                 self.workoutCards[i]["cardDescription"].setText(listWorkout[start+i]["description"])
                 self.workoutCards[i]["cardSpecification"].setText(listWorkout[start+i]["specification"])
                 self.workoutCards[i]["card"].show()

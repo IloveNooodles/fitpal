@@ -4,6 +4,7 @@ import math
 from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
 from PyQt6.QtGui import QFont, QPixmap, QCursor, QIcon
 from PyQt6.QtCore import Qt, pyqtSignal
+import requests
 
 bg_color = '#28293D'
 atlantic = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #3eebbe stop:0.0001 #4ec1f3, stop:1 #68fcd6)'
@@ -329,7 +330,14 @@ class WorkoutHistory(QWidget):
           WHERE olahraga_id = {self.history[hIndex]['olahraga_id']}
           """)
           res = c.fetchone()
-          self.cards[i]['cardImg'].setPixmap(QPixmap(res[4]))
+          if (res[4][:4] == 'http'):
+            pixmap = QPixmap()
+            request = requests.get(res[4])
+            pixmap.loadFromData(request.content)
+            pixmap.scaledToHeight(120)
+            self.cards[i]["cardImg"].setPixmap(pixmap.scaledToHeight(160))
+          else:
+            self.cards[i]['cardImg'].setPixmap(QPixmap(res[4]))
           self.cards[i]['name'].setText(res[1])
         self.cards[i]['date'].setText(self.history[hIndex]['date'])
         self.cards[i]['specification'].setText(self.history[hIndex]['specification'])
