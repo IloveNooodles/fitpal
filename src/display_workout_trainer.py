@@ -199,6 +199,7 @@ class DisplayWorkoutTrainer(QWidget):
             self.workoutCards[i]["cardTutorialButton"].setText("Tutorial")
             self.workoutCards[i]["cardTutorialButton"].setStyleSheet("color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
             self.workoutCards[i]["cardTutorialButton"].clicked.connect(lambda x, i=i: self.openTutorial(i))
+            self.workoutCards[i]["cardTutorialButton"].setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
     def setUpDisplayWorkout(self):
         listWorkout = self.workout
