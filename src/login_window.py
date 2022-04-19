@@ -1,11 +1,11 @@
 import sys
 import sqlite3
+import bcrypt
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox
 from PyQt6.QtGui import QFont, QPixmap, QCursor
 from PyQt6.QtCore import Qt
 from PyQt6.QtCore import pyqtSignal
 from custom_widgets import ClickableLabel
-
 
 class LoginWindow(QWidget):
     switch = pyqtSignal(str, dict)
@@ -163,11 +163,16 @@ class LoginWindow(QWidget):
         else:
             self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
+    def comparePass(self, password, hashPassword):
+        return bcrypt.checkpw(password.encode(), hashPassword.encode())
+
     def login(self):
         c = self.conn.cursor()
         c.execute(
-            f"SELECT * FROM user WHERE (username = '{self.usernameEdit.text()}' OR email = '{self.usernameEdit.text()}') AND password = '{self.passwordEdit.text()}'")
+            f"SELECT * FROM user WHERE (username = '{self.usernameEdit.text()}' OR email = '{self.usernameEdit.text()}')")
         res = c.fetchone()
+        if not self.comparePass(self.passwordEdit.text(), res[4]):
+            res = None
         if res == None:
             msgBox = QMessageBox()
             msgBox.setText(

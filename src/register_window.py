@@ -1,5 +1,7 @@
 import sys
 import sqlite3
+import bcrypt
+import re
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QRadioButton, QMessageBox
 from PyQt6.QtGui import QFont, QPixmap, QCursor
 from PyQt6.QtCore import Qt
@@ -213,10 +215,39 @@ class RegisterWindow(QWidget):
         else:
             self.passwordEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
+    def emailValidation(self, email):
+        validEmail = r"[A-Za-z0-9._]+@[A-Za-z0-9.]+\.[A-Z|a-z]{2,}"
+        if re.match(validEmail, email):
+            return True
+        else:
+            return False
+    
+    def hashPassword(self, password):
+        bytePass = password.encode('utf-8')
+        return bcrypt.hashpw(bytePass, bcrypt.gensalt())
+
     def register(self):
         if (self.nameEdit.text() == '' or self.unameEdit.text() == '' or self.emailEdit.text() == '' or self.passwordEdit.text() == '' or (not self.rbUser.isChecked() and not self.rbTrainer.isChecked())):
             msgBox = QMessageBox()
             msgBox.setText("<p>Please fill out the form properly!</p>")
+            msgBox.setWindowTitle("Registration Failed")
+            msgBox.setIcon(QMessageBox.Icon.Warning)
+            msgBox.setStyleSheet("background-color: white")
+            msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msgBox.exec()
+            return
+        if not self.emailValidation(self.emailEdit.text()):
+            msgBox = QMessageBox()
+            msgBox.setText("<p>Please input correct email!</p>")
+            msgBox.setWindowTitle("Registration Failed")
+            msgBox.setIcon(QMessageBox.Icon.Warning)
+            msgBox.setStyleSheet("background-color: white")
+            msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msgBox.exec()
+            return
+        if len(self.passwordEdit.text()) < 8:
+            msgBox = QMessageBox()
+            msgBox.setText("<p>Password is too short!</p>")
             msgBox.setWindowTitle("Registration Failed")
             msgBox.setIcon(QMessageBox.Icon.Warning)
             msgBox.setStyleSheet("background-color: white")
@@ -246,13 +277,15 @@ class RegisterWindow(QWidget):
             msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
             msgBox.exec()
             return
+        hashedPass = self.hashPassword(self.passwordEdit.text())
+        hashedPass = hashedPass.decode()
         if (self.rbUser.isChecked()):
             c.execute(
-                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'user')")
+                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{hashedPass}', 'user')")
             self.conn.commit()
         else:
             c.execute(
-                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{self.passwordEdit.text()}', 'trainer')")
+                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', `{hashedPass}`, 'trainer')")
             self.conn.commit()
         # Tunjukkan registrasi berhasil
         msgBox = QMessageBox()
@@ -270,7 +303,6 @@ class RegisterWindow(QWidget):
         self.passwordEdit.clear()
         # Emit signal to controller
         self.switch.emit()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
