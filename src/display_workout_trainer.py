@@ -61,6 +61,10 @@ class DisplayWorkoutTrainer(QWidget):
         self.pageWorkout = 0
         self.fetchWorkout()
         self.setUpDisplayWorkoutWindow()
+
+    def updateDisplayWorkout(self):
+        self.fetchWorkout()
+        self.setUpDisplayWorkoutWindow()
     
     def setUpDisplayWorkoutWindow(self):
         self.setFixedSize(1280, 720)

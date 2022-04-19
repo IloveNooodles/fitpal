@@ -40,6 +40,10 @@ class DisplayWorkout(QWidget):
         self.fetchWorkout()
         self.setUpDisplayWorkoutWindow()
 
+    def updateDisplayWorkout(self):
+        self.fetchWorkout()
+        self.setUpDisplayWorkoutWindow()
+
     def setUpDisplayWorkoutWindow(self):
         self.setFixedSize(1280, 720)
         self.setWindowTitle("FitPal - Display Workout")
