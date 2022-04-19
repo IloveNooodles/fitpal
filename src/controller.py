@@ -62,7 +62,7 @@ class Controller:
             self.loginWindow.show()
         elif page == "display_workout":
             self.displayWorkout.updateUser(user)
-            # self.displayWorkout.updateDisplayWorkout()
+            self.displayWorkout.updateDisplayWorkout()
             self.displayWorkout.show()
         elif page == "finish_workout":
             self.workoutHistory.updateUser(user)
@@ -76,7 +76,7 @@ class Controller:
             self.loginWindow.show()
         elif page == "display_workout":
             self.displayWorkoutTrainer.updateUser(user)
-            # self.displayWorkoutTrainer.updateDisplayWorkout()
+            self.displayWorkoutTrainer.updateDisplayWorkout()
             self.displayWorkoutTrainer.show()
         elif page == "add_workout":
             self.addWorkout.updateUser(user)
@@ -89,7 +89,7 @@ class Controller:
             self.loginWindow.show()
         elif page == "display_workout":
             self.displayWorkoutTrainer.updateUser(user)
-            # self.displayWorkoutTrainer.updateDisplayWorkout()
+            self.displayWorkoutTrainer.updateDisplayWorkout()
             self.displayWorkoutTrainer.show()
 
     def fromDisplayWorkout(self, page, user):

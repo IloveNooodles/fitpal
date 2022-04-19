@@ -64,7 +64,7 @@ class DisplayWorkoutTrainer(QWidget):
 
     def updateDisplayWorkout(self):
         self.fetchWorkout()
-        self.setUpDisplayWorkoutWindow()
+        self.setUpDisplayWorkout()
     
     def setUpDisplayWorkoutWindow(self):
         self.setFixedSize(1280, 720)
@@ -96,12 +96,14 @@ class DisplayWorkoutTrainer(QWidget):
         self.rightWorkoutButton.setStyleSheet("background-image: url(images/right-btn.png);")
         self.rightWorkoutButton.clicked.connect(self.rightWorkoutButtonClicked)
         self.rightWorkoutButton.hide()
+        self.rightWorkoutButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.leftWorkoutButton = QPushButton(self)
         self.leftWorkoutButton.setGeometry(QRect(102, 308, 48, 48))
         self.leftWorkoutButton.setStyleSheet("background-image: url(images/left-btn.png);")
         self.leftWorkoutButton.clicked.connect(self.leftWorkoutButtonClicked)
         self.leftWorkoutButton.hide()
+        self.leftWorkoutButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.backBtn = QPushButton(self)
         self.backBtn.setText("Back")
