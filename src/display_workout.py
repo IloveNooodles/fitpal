@@ -1,9 +1,10 @@
 import sys
 import sqlite3
 import webbrowser
-from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
-from PyQt6.QtGui import QFont, QPixmap, QCursor, QImage
+from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
+from PyQt6.QtGui import QFont, QPixmap, QCursor
 from PyQt6.QtCore import Qt, pyqtSignal, QRect
+from datetime import date
 import requests
 
 BG_COLOR = '#28293D'
@@ -87,7 +88,7 @@ class DisplayWorkout(QWidget):
         self.noWorkoutPlan.setFont(inter24)
         self.noWorkoutPlan.hide()
 
-        # Set up log out button
+        # Set up back button
         backBtn = QPushButton(self)
         backBtn.setText("Back")
         backBtn.setStyleSheet(f'''
@@ -205,11 +206,11 @@ class DisplayWorkout(QWidget):
             self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardSpecification"].setFont(inter12)
 
-            # self.workoutCards[i]["cardAddButton"] = QPushButton(self)
-            # self.workoutCards[i]["cardAddButton"].setGeometry(QRect(308 + (i*340), 441, 120, 30))
-            # self.workoutCards[i]["cardAddButton"].setText("Add to activity")
-            # self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {DARK_YELLOW}; border: none; border-radius: 12px; font-weight: bold;")
-            # self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
+            self.workoutCards[i]["cardAddButton"] = QPushButton(self)
+            self.workoutCards[i]["cardAddButton"].setGeometry(QRect(308 + (i*340), 441, 120, 30))
+            self.workoutCards[i]["cardAddButton"].setText("Add to activity")
+            self.workoutCards[i]["cardAddButton"].setStyleSheet(f"color: #ffffff; background-color: {DARK_YELLOW}; border: none; border-radius: 12px; font-weight: bold;")
+            self.workoutCards[i]["cardAddButton"].clicked.connect(lambda x, i=i: self.addWorkoutCardToActivity(i))
 
             self.workoutCards[i]["cardTutorialButton"] = QPushButton(self)
             self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((172) + (i*340), 441, 90, 30))
@@ -267,7 +268,7 @@ class DisplayWorkout(QWidget):
                 self.workoutCards[i]["cardTitle"].show()
                 self.workoutCards[i]["cardDescription"].show()
                 self.workoutCards[i]["cardSpecification"].show()
-                # self.workoutCards[i]["cardAddButton"].show()
+                self.workoutCards[i]["cardAddButton"].show()
                 self.workoutCards[i]["cardTutorialButton"].show()
             else:
                 self.workoutCards[i]["card"].hide()
@@ -275,7 +276,7 @@ class DisplayWorkout(QWidget):
                 self.workoutCards[i]["cardTitle"].hide()
                 self.workoutCards[i]["cardDescription"].hide()
                 self.workoutCards[i]["cardSpecification"].hide()
-                # self.workoutCards[i]["cardAddButton"].hide()
+                self.workoutCards[i]["cardAddButton"].hide()
                 self.workoutCards[i]["cardTutorialButton"].hide()
 
         if self.pageWorkout == 0:
@@ -319,10 +320,27 @@ class DisplayWorkout(QWidget):
         else:
             self.rightWorkoutPlanButton.hide()
 
-    # def addWorkoutCardToActivity(self, idx):
-    #     idx += self.pageWorkout*3
-    #     print("add", self.workout[idx]["name"], "to activity")
-    #     # add workout to history
+    def addWorkoutCardToActivity(self, idx):
+        idx += self.pageWorkout*3
+        # add workout to history
+        c = self.conn.cursor()
+        c.execute("""
+            INSERT INTO workout_history 
+                (user_id, olahraga_id, name, specification, date)
+            VALUES
+                (?, ?, ?, ?, ?)
+        """, [self.user["id"], self.workout[idx]["olahraga_id"], self.workout[idx]["name"], self.workout[idx]["specification"], date.today()])
+        self.conn.commit()
+
+        # Tunjukkan hasil add to activity berhasil
+        self.msgBox = QMessageBox()
+        self.msgBox.setText("Successfuly added workout to your history!")
+        self.msgBox.setWindowTitle("Successfuly added workout to your history!")
+        self.msgBox.setIcon(QMessageBox.Icon.Information)
+        self.msgBox.setStyleSheet("background-color: white")
+        self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+        self.msgBox.exec()
+
 
     def openTutorial(self, idx):
         idx += self.pageWorkout*3
