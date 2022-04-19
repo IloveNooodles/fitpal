@@ -208,7 +208,7 @@ class Controller:
             VALUES
                 (1, 2, 20, 'Laki-laki', 65, 170, 'I want to have a sixpack stomach', True, 'Chest Day', 'This workout plan is made to strengthen your \nabdominal muscles.'),
                 (1,2,20, 'Laki-laki', 65, 170, 'I want to have a strong leg muscles', True, 'Leg Day', 'This workout plan is made to strengthen your \nleg muscles.')
-        """)
+            """)
             c.execute("""
             INSERT INTO workout
                 (request_id, olahraga_id, status)
@@ -218,7 +218,7 @@ class Controller:
                 (1, 6, False),
                 (2, 4, False),
                 (2, 7, False)
-        """)
+            """)
 
             self.conn.commit()
             self.conn.commit()
