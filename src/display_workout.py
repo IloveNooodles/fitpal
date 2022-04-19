@@ -74,6 +74,14 @@ class DisplayWorkout(QWidget):
         self.helloLabel.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.helloLabel.setFont(inter24)
 
+        # Set up no workout plan text
+        self.noWorkoutPlan = QLabel(self)
+        self.noWorkoutPlan.setText("You don’t have any workout plans tailored for you!")
+        self.noWorkoutPlan.move(105, 573)
+        self.noWorkoutPlan.setStyleSheet("color: rgba(255, 255, 255, 0.8); background-color: {BG_COLOR}")
+        self.noWorkoutPlan.setFont(inter24)
+        self.noWorkoutPlan.hide()
+
         # Set up log out button
         backBtn = QPushButton(self)
         backBtn.setText("Back")
@@ -281,6 +289,11 @@ class DisplayWorkout(QWidget):
                 self.workoutPlanCards[i]["cardDescription"].hide()
                 self.workoutPlanCards[i]["cardSeeMoreButton"].hide()
 
+        if len(self.workoutPlan) == 0:
+            self.noWorkoutPlan.show()
+        else:
+            self.noWorkoutPlan.hide()
+            
         if self.pageWorkoutPlan == 0:
             self.leftWorkoutPlanButton.hide()
         else:
