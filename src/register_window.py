@@ -285,7 +285,7 @@ class RegisterWindow(QWidget):
             self.conn.commit()
         else:
             c.execute(
-                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', `{hashedPass}`, 'trainer')")
+                f"INSERT INTO user (fullname, username, email, password, type) VALUES ('{self.nameEdit.text()}', '{self.unameEdit.text()}', '{self.emailEdit.text()}', '{hashedPass}', 'trainer')")
             self.conn.commit()
         # Tunjukkan registrasi berhasil
         msgBox = QMessageBox()
