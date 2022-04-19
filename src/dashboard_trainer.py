@@ -29,7 +29,7 @@ class TrainerDashboard(QWidget):
 
   def setUpDashboardWindow(self):
     self.setFixedSize(1280, 720)
-    self.setWindowTitle("FitPal - User Dashboard")
+    self.setWindowTitle("FitPal - Trainer Dashboard")
     self.setUpWidgets()
   
   def setUpWidgets(self):
