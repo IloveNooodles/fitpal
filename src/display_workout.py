@@ -186,6 +186,7 @@ class DisplayWorkout(QWidget):
             self.workoutCards[i]["cardSpecification"] = QLabel(self)
             self.workoutCards[i]["cardSpecification"].setText("Specification")
             self.workoutCards[i]["cardSpecification"].setGeometry(QRect(350 + (i*340), 344, 80, 14))
+            self.workoutCards[i]["cardSpecification"].setAlignment(Qt.AlignmentFlag.AlignRight)
             self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardSpecification"].setFont(inter12)
 

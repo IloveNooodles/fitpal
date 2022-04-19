@@ -109,16 +109,16 @@ class UserDashboard(QWidget):
         goSeeWorkoutBtn = QPushButton(self)
         goSeeWorkoutBtn.setText("Go!")
         goSeeWorkoutBtn.setStyleSheet(f'''
-      QPushButton {{
-        color: #ffffff;
-        background-color: {btn_color};
-        border: none;
-        border-radius: 12px;
-      }}
-      QPushButton:hover {{
-        background-color: {btn_color_hover};
-      }}
-    ''')
+        QPushButton {{
+            color: #ffffff;
+            background-color: {btn_color};
+            border: none;
+            border-radius: 12px;
+        }}
+        QPushButton:hover {{
+            background-color: {btn_color_hover};
+        }}
+        ''')
         goSeeWorkoutBtn.setFixedSize(90, 48)
         goSeeWorkoutBtn.setFont(inter16)
         goSeeWorkoutBtn.move(211, 532)
@@ -126,13 +126,13 @@ class UserDashboard(QWidget):
         goSeeWorkoutBtn.clicked.connect(self.seeWorkout)
         # Set up purple card
         pHeading = QLabel(self)
-        pHeading.setText("Add completed workout(s)")
+        pHeading.setText("See or add workout history")
         pHeading.setFont(inter24bold)
         pHeading.move(520, 446)
         pHeading.setStyleSheet(
             f"color: rgba(0, 0, 0, 0.5); background-color: {light_purple}")
         pText = QLabel(self)
-        pText.setText("Don’t forget to mark your daily workout wins here!")
+        pText.setText("Want to check out your progress, or add something\nnew to your progress?")
         pText.setFont(inter13)
         pText.move(520, 477)
         pText.setStyleSheet(

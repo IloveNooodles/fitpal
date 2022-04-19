@@ -205,16 +205,16 @@ class trainer_AddWorkout(QWidget):
     self.goBack.setText("Back")
     self.goBack.setFixedSize(180, 45)
     self.goBack.move(60, 615)
-    self.goBack.setStyleSheet('''
-      QPushButton {
+    self.goBack.setStyleSheet(f'''
+      QPushButton {{
         color: #ffffff;
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #EF586E, stop:1 #F10628);
+        background-color: #F10628;
         border: none;
         border-radius: 12px;
-      }
-      QPushButton:hover {
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff);
-      }
+      }}
+      QPushButton:hover {{
+        background-color: #f43853;
+      }}
     ''')
     self.goBack.setFont(inter16)
     self.goBack.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -236,6 +236,7 @@ class trainer_AddWorkout(QWidget):
       }
     ''')
     self.Add.setFont(inter16)
+    self.Add.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
     self.Add.clicked.connect(self.addWorkout)
 
   def addWorkout(self):
@@ -252,7 +253,7 @@ class trainer_AddWorkout(QWidget):
     c.execute(f"SELECT * FROM list_olahraga WHERE name = '{self.title.text()}' AND specification = '{self.specification.text()}' AND forUser = 'null'")
     if (c.fetchone() != None):
       msgBox = QMessageBox()
-      msgBox.setText("<p>Workout already exist!</p>")
+      msgBox.setText("<p>Workout already exists!</p>")
       msgBox.setWindowTitle("Add New Workout Failed")
       msgBox.setIcon(QMessageBox.Icon.Warning)
       msgBox.setStyleSheet("background-color: white")
@@ -263,7 +264,7 @@ class trainer_AddWorkout(QWidget):
     self.conn.commit()
   # Tunjukkan registrasi berhasil
     msgBox = QMessageBox()
-    msgBox.setText(f"<p>Add New Workout Successful</p>")
+    msgBox.setText(f"<p>Workout has been added successfully!</p>")
     msgBox.setWindowTitle("Add New Workout Successful")
     msgBox.setIcon(QMessageBox.Icon.Information)
     msgBox.setStyleSheet("background-color: white")

@@ -85,12 +85,12 @@ conn.execute("""
 conn.execute("""
     INSERT INTO workout_history (olahraga_id, specification, date) 
     VALUES
-    (1, '10 Repitition', '06 January 2022'),
-    (2, '20 Repitition', '07 February 2022'),
-    (3, '30 Repitition', '08 March 2022'),
-    (4, '10 Repitition', '10 November 2022'),
-    (5, '70 Kg', '11 October 2022'),
-    (6, '10 Meters', '12 December 2022')
+    (1, '10 Repetition', '06 January 2022'),
+    (2, '20 Repetition', '07 February 2022'),
+    (3, '30 Repetition', '08 March 2022'),
+    (4, '10 Repetition', '10 November 2022'),
+    (5, '70 kg', '11 October 2022'),
+    (6, '10 meters', '12 December 2022')
 """)
 
 conn.commit()

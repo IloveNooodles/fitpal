@@ -30,6 +30,18 @@ back_btn_style = f'''
       }}
     '''
 
+BG_COLOR = '#28293D'
+PRIMARY_BLACK = '#000000'
+PRIMARY_WHITE = '#FFFFFF'
+PRIMARY_BUTTON = '#5561FF'
+YELLOW = '#FEC166'
+DARK_YELLOW = '#EEA02B'
+GRAPE = '#7366FE'
+ATLANTIC = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #3eebbe stop:0.0001 #4ec1f3, stop:1 #68fcd6)'
+LIGHT_YELLOW = '#FFD9A0'
+BTN_COLOR = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #5561ff, stop:1 #3643fc);'
+BTN_COLOR_HOVER = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #6b75ff, stop:1 #535fff)'
+
 class DisplayWorkoutTrainer(QWidget):
     switch = pyqtSignal(str, dict)
 
@@ -75,20 +87,17 @@ class DisplayWorkoutTrainer(QWidget):
         logo.move(60, 30)
         logo.setStyleSheet(f"background-color: {bg_color}")
 
-        # Set up workout cards from workout
-        self.initializeWorkoutCards()
-        self.setUpDisplayWorkout()
-        # self.setUpDisplayWorkoutPlan()
-
         self.rightWorkoutButton = QPushButton(self)
-        self.rightWorkoutButton.setGeometry(QRect(1088, 358, 48, 48))
-        self.rightWorkoutButton.setStyleSheet(f"background-image: url(images/right-btn.png);")
+        self.rightWorkoutButton.setGeometry(QRect(1130, 308, 48, 48))
+        self.rightWorkoutButton.setStyleSheet("background-image: url(images/right-btn.png);")
         self.rightWorkoutButton.clicked.connect(self.rightWorkoutButtonClicked)
+        self.rightWorkoutButton.hide()
 
         self.leftWorkoutButton = QPushButton(self)
-        self.leftWorkoutButton.setGeometry(QRect(60, 358, 48, 48))
-        self.leftWorkoutButton.setStyleSheet(f"background-image: url(images/left-btn.png);")
+        self.leftWorkoutButton.setGeometry(QRect(102, 308, 48, 48))
+        self.leftWorkoutButton.setStyleSheet("background-image: url(images/left-btn.png);")
         self.leftWorkoutButton.clicked.connect(self.leftWorkoutButtonClicked)
+        self.leftWorkoutButton.hide()
 
         self.backBtn = QPushButton(self)
         self.backBtn.setText("Back")
@@ -101,7 +110,7 @@ class DisplayWorkoutTrainer(QWidget):
 
         self.Add = QPushButton(self)
         self.Add.setText("Add new workout")
-        self.Add.setFixedSize(150, 45)
+        self.Add.setFixedSize(189, 45)
         self.Add.move(190, 615)
         self.Add.setStyleSheet('''
         QPushButton {
@@ -115,8 +124,12 @@ class DisplayWorkoutTrainer(QWidget):
         }
         ''')
         self.Add.setFont(inter16)
-        self.backBtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.Add.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.Add.clicked.connect(self.addWorkout)
+
+        # Set up workout cards from workout
+        self.initializeWorkoutCards()
+        self.setUpDisplayWorkout()
         
     def initializeWorkoutCards(self):
         # Set up font
@@ -157,32 +170,34 @@ class DisplayWorkoutTrainer(QWidget):
         for i in range(3):
             self.workoutCards.append({})
             self.workoutCards[i]["card"] = QLabel(self)
-            self.workoutCards[i]["card"].setGeometry(QRect(108 + (i * 340), 238, 300, 300))
-            self.workoutCards[i]["card"].setStyleSheet(f"background-color: {bg_color}")
-            self.workoutCards[i]["card"].setPixmap(QPixmap("images/template-yellow-card.png"))
+            self.workoutCards[i]["card"].setGeometry(QRect(150 + (i * 340), 188, 300, 300))
+            self.workoutCards[i]["card"].setStyleSheet(f"background-color: {BG_COLOR}")
+            self.workoutCards[i]["card"].setPixmap(QPixmap("images/template-YELLOW-card.png"))
             self.workoutCards[i]["cardIllustration"] = QLabel(self)
-            self.workoutCards[i]["cardIllustration"].setGeometry(QRect(198 + (i%3*340), 250, 120, 120))
-            self.workoutCards[i]["cardIllustration"].setStyleSheet(f"background-color: {yellow}")
+            self.workoutCards[i]["cardIllustration"].setGeometry(QRect(240 + (i%3*340), 200, 120, 120))
+            self.workoutCards[i]["cardIllustration"].setStyleSheet(f"background-color: {YELLOW}")
             self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap("images/push-up.png"))
             self.workoutCards[i]["cardTitle"] = QLabel(self)
-            self.workoutCards[i]["cardTitle"].setGeometry(QRect(130 + (i%3*340), 389, 90, 20))
-            self.workoutCards[i]["cardTitle"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardTitle"].setGeometry(QRect(172 + (i%3*340), 339, 120, 20))
+            self.workoutCards[i]["cardTitle"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardTitle"].setText("Title")
             self.workoutCards[i]["cardTitle"].setFont(inter16bold)
             self.workoutCards[i]["cardDescription"] = QLabel(self)
             self.workoutCards[i]["cardDescription"].setText("Description")
-            self.workoutCards[i]["cardDescription"].setGeometry(QRect(130 + (i%3*340), 416, 256, 64))
-            self.workoutCards[i]["cardDescription"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardDescription"].setGeometry(QRect(172 + (i%3*340), 366, 256, 64))
+            self.workoutCards[i]["cardDescription"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardDescription"].setFont(inter10)
             self.workoutCards[i]["cardSpecification"] = QLabel(self)
             self.workoutCards[i]["cardSpecification"].setText("Specification")
-            self.workoutCards[i]["cardSpecification"].setGeometry(QRect(308 + (i*340), 394, 80, 14))
-            self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {primary_black}; background-color: {light_yellow}")
+            self.workoutCards[i]["cardSpecification"].setAlignment(Qt.AlignmentFlag.AlignRight)
+            self.workoutCards[i]["cardSpecification"].setGeometry(QRect(350 + (i*340), 344, 80, 14))
+            self.workoutCards[i]["cardSpecification"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
             self.workoutCards[i]["cardSpecification"].setFont(inter12)
+
             self.workoutCards[i]["cardTutorialButton"] = QPushButton(self)
-            self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((130) + (i*340), 491, 90, 30))
+            self.workoutCards[i]["cardTutorialButton"].setGeometry(QRect((172) + (i*340), 441, 90, 30))
             self.workoutCards[i]["cardTutorialButton"].setText("Tutorial")
-            self.workoutCards[i]["cardTutorialButton"].setStyleSheet(f"color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
+            self.workoutCards[i]["cardTutorialButton"].setStyleSheet("color: #6E7198; background: transparent; border: 2px solid; border-color: #6E7198; border-radius: 12px;")
             self.workoutCards[i]["cardTutorialButton"].clicked.connect(lambda x, i=i: self.openTutorial(i))
 
     def setUpDisplayWorkout(self):
@@ -208,11 +223,20 @@ class DisplayWorkoutTrainer(QWidget):
                 self.workoutCards[i]["cardSpecification"].hide()
                 self.workoutCards[i]["cardTutorialButton"].hide()
 
+        if self.pageWorkout == 0:
+            self.leftWorkoutButton.hide()
+        else:
+            self.leftWorkoutButton.show()
+
+        if start + 3 < len(listWorkout):
+            self.rightWorkoutButton.show()
+        else:
+            self.rightWorkoutButton.hide()
+
     def openTutorial(self, idx):
         idx += self.pageWorkout*3
         webbrowser.open(self.workout[idx]["linkTutorial"])
     
-
     def rightWorkoutButtonClicked(self):
         if (self.pageWorkout < (len(self.workout)//3)):
             self.pageWorkout += 1

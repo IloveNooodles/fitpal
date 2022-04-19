@@ -75,6 +75,9 @@ class Controller:
         elif page == "display_workout":
             self.displayWorkoutTrainer.updateUser(user)
             self.displayWorkoutTrainer.show()
+        elif page == "add_workout":
+            self.addWorkout.updateUser(user)
+            self.addWorkout.show()
 
     def fromAddWorkout(self, page, user):
         self.addWorkout.close()
