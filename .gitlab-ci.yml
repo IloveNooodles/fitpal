@@ -1,38 +1,28 @@
 image: python:3.9
 
 before_script:
-  - python --version  # For debugging
-  - pip install isort black flake8 pylint pytest pyqt6 db-sqlite3
+  - python --version # For debugging
+  - pip install isort pylint pytest pyqt6 db-sqlite3
 
 stages:
-    - linting
-    - test
+  - linting
+  - test
 
 isort:
-    stage: linting
-    script:
-        - python -m isort . --check-only
-
-black:
-    stage: linting
-    script:
-        - python -m black --check .
-
-flake8:
-    stage: linting
-    script:
-        - python -m flake8 .
+  stage: linting
+  script:
+    - python -m isort . --check-only
 
 pylint:
-    stage: linting
-    script:
-        - python -m pylint -d W0201 R0915 R0902 C0103 C0301 C0325 src
+  stage: linting
+  script:
+    - python -m pylint src
 
 pytest:
-    stage: test
-    tags:
-        - rpl
-    script:
-        - pytest
-    only:
-        - merge_request
+  stage: test
+  tags:
+    - rpl
+  script:
+    - pytest
+  only:
+    - merge_request

@@ -1,17 +1,20 @@
-import sys
+import os.path
 import sqlite3
+import sys
 from tkinter import E
+
 from PyQt6.QtWidgets import QApplication
-from login_window import LoginWindow
-from register_window import RegisterWindow
-from dashboard_user import UserDashboard
-from dashboard_trainer import TrainerDashboard
+
+from add_history import addHistory
 from add_workout import trainer_AddWorkout
+from dashboard_trainer import TrainerDashboard
+from dashboard_user import UserDashboard
 from display_workout import DisplayWorkout
 from display_workout_trainer import DisplayWorkoutTrainer
+from login_window import LoginWindow
+from register_window import RegisterWindow
 from workout_history import WorkoutHistory
-from add_history import addHistory
-import os.path
+
 
 class Controller:
     def __init__(self):

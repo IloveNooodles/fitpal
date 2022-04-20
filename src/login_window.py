@@ -1,11 +1,14 @@
-import sys
 import sqlite3
+import sys
+
 import bcrypt
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QMessageBox
-from PyQt6.QtGui import QFont, QPixmap, QCursor
-from PyQt6.QtCore import Qt
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QCursor, QFont, QPixmap
+from PyQt6.QtWidgets import (QApplication, QLabel, QLineEdit, QMessageBox,
+                             QPushButton, QWidget)
+
 from custom_widgets import ClickableLabel
+
 
 class LoginWindow(QWidget):
     switch = pyqtSignal(str, dict)

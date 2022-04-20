@@ -1,11 +1,13 @@
-import sys
-import sqlite3
-import bcrypt
 import re
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QRadioButton, QMessageBox
-from PyQt6.QtGui import QFont, QPixmap, QCursor
-from PyQt6.QtCore import Qt
-from PyQt6.QtCore import pyqtSignal
+import sqlite3
+import sys
+
+import bcrypt
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QCursor, QFont, QPixmap
+from PyQt6.QtWidgets import (QApplication, QLabel, QLineEdit, QMessageBox,
+                             QPushButton, QRadioButton, QWidget)
+
 from custom_widgets import ClickableLabel
 
 card_bg = '#3E405B'

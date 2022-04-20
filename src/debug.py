@@ -1,6 +1,7 @@
-import sqlite3
-import bcrypt
 import re
+import sqlite3
+
+import bcrypt
 
 # conn = sqlite3.connect("fitpal.db")
 # c = conn.cursor()

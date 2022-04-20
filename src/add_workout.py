@@ -1,8 +1,11 @@
-import sys
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QTextEdit, QMessageBox
-from PyQt6.QtGui import QFont, QPixmap, QCursor
+import sys
+
 from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QCursor, QFont, QPixmap
+from PyQt6.QtWidgets import (QApplication, QLabel, QLineEdit, QMessageBox,
+                             QPushButton, QTextEdit, QWidget)
+
 from custom_widgets import ClickableLabel
 
 bg_color = '#28293D'

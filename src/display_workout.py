@@ -1,11 +1,13 @@
-import sys
 import sqlite3
+import sys
 import webbrowser
-from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton, QMessageBox
-from PyQt6.QtGui import QFont, QPixmap, QCursor
-from PyQt6.QtCore import Qt, pyqtSignal, QRect
 from datetime import date
+
 import requests
+from PyQt6.QtCore import QRect, Qt, pyqtSignal
+from PyQt6.QtGui import QCursor, QFont, QPixmap
+from PyQt6.QtWidgets import (QApplication, QLabel, QMessageBox, QPushButton,
+                             QWidget)
 
 BG_COLOR = '#28293D'
 PRIMARY_BLACK = '#000000'

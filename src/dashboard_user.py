@@ -1,7 +1,8 @@
 import sys
-from PyQt6.QtWidgets import QWidget, QApplication, QLabel, QPushButton
-from PyQt6.QtGui import QFont, QPixmap, QCursor
+
 from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QCursor, QFont, QPixmap
+from PyQt6.QtWidgets import QApplication, QLabel, QPushButton, QWidget
 
 bg_color = '#28293D'
 atlantic = 'qlineargradient(x1:0, y1:0, x2:1, y2: 1, stop:0 #3eebbe stop:0.0001 #4ec1f3, stop:1 #68fcd6)'
