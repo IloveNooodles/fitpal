@@ -2,7 +2,7 @@ image: python:3.9
 
 before_script:
   - python --version # For debugging
-  - pip install isort pylint pytest pyqt6 db-sqlite3
+  - pip install isort pylint pytest pyqt6 db-sqlite3 requests bcrypt
 
 stages:
   - linting
