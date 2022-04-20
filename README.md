@@ -30,7 +30,7 @@ Aplikasi FitPal memiliki beberapa fitur, yaitu:
 
 Jalankan file `run.bat`
 
-### Untuk Linux
+### Untuk UNIX (Linux & Mac)
 
 Jalankan command `make run` pada terminal
 
