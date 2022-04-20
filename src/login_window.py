@@ -174,7 +174,7 @@ class LoginWindow(QWidget):
         c.execute(
             f"SELECT * FROM user WHERE (username = '{self.usernameEdit.text()}' OR email = '{self.usernameEdit.text()}')")
         res = c.fetchone()
-        if not self.comparePass(self.passwordEdit.text(), res[4]):
+        if res != None and not self.comparePass(self.passwordEdit.text(), res[4]):
             res = None
         if res == None:
             msgBox = QMessageBox()
