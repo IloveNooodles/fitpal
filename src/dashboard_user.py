@@ -60,7 +60,7 @@ class UserDashboard(QWidget):
         # Set up background image
         self.setStyleSheet(f"background-color: {bg_color}")
         # Set up logo
-        logoPixmap = QPixmap("images/dashboard-fitpal-logo.png")
+        logoPixmap = QPixmap("../img/dashboard-fitpal-logo.png")
         logo = QLabel(self)
         logo.setPixmap(logoPixmap)
         logo.move(60, 30)
@@ -83,13 +83,13 @@ class UserDashboard(QWidget):
         heading.setFont(inter48)
         # Set up cards
         yellowCard = QLabel(self)
-        yellowCardPixmap = QPixmap("images/dashboard-card-yellow")
+        yellowCardPixmap = QPixmap("../img/dashboard-card-yellow")
         yellowCard.setPixmap(yellowCardPixmap)
         yellowCard.move(60, 195)
         yellowCard.setStyleSheet(f"background-color: {bg_color}")
 
         purpleCard = QLabel(self)
-        purpleCardPixmap = QPixmap("images/dashboard-card-purple")
+        purpleCardPixmap = QPixmap("../img/dashboard-card-purple")
         purpleCard.setPixmap(purpleCardPixmap)
         purpleCard.move(490, 195)
         purpleCard.setStyleSheet(f"background-color: {bg_color}")

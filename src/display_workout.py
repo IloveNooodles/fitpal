@@ -67,7 +67,7 @@ class DisplayWorkout(QWidget):
         self.setStyleSheet(f"background-color: {BG_COLOR}")
 
         # Set up logo
-        logoPixmap = QPixmap("images/dashboard-fitpal-logo.png")
+        logoPixmap = QPixmap("../img/dashboard-fitpal-logo.png")
         logo = QLabel(self)
         logo.setPixmap(logoPixmap)
         logo.move(60, 30)
@@ -112,27 +112,27 @@ class DisplayWorkout(QWidget):
 
         self.rightWorkoutButton = QPushButton(self)
         self.rightWorkoutButton.setGeometry(QRect(1130, 308, 48, 48))
-        self.rightWorkoutButton.setStyleSheet("background-image: url(images/right-btn.png);")
+        self.rightWorkoutButton.setStyleSheet("background-image: url(../img/right-btn.png);")
         self.rightWorkoutButton.clicked.connect(self.rightWorkoutButtonClicked)
         self.rightWorkoutButton.hide()
         self.rightWorkoutButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.leftWorkoutButton = QPushButton(self)
         self.leftWorkoutButton.setGeometry(QRect(102, 308, 48, 48))
-        self.leftWorkoutButton.setStyleSheet("background-image: url(images/left-btn.png);")
+        self.leftWorkoutButton.setStyleSheet("background-image: url(../img/left-btn.png);")
         self.leftWorkoutButton.clicked.connect(self.leftWorkoutButtonClicked)
         self.leftWorkoutButton.hide()
         self.leftWorkoutButton.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.rightWorkoutPlanButton = QPushButton(self)
         self.rightWorkoutPlanButton.setGeometry(QRect(1130, 590, 48, 48))
-        self.rightWorkoutPlanButton.setStyleSheet("background-image: url(images/right-btn.png);")
+        self.rightWorkoutPlanButton.setStyleSheet("background-image: url(../img/right-btn.png);")
         self.rightWorkoutPlanButton.clicked.connect(self.rightWorkoutPlanButtonClicked)
         self.rightWorkoutPlanButton.hide()
 
         self.leftWorkoutPlanButton = QPushButton(self)
         self.leftWorkoutPlanButton.setGeometry(QRect(102, 590, 48, 48))
-        self.leftWorkoutPlanButton.setStyleSheet("background-image: url(images/left-btn.png);")
+        self.leftWorkoutPlanButton.setStyleSheet("background-image: url(../img/left-btn.png);")
         self.leftWorkoutPlanButton.clicked.connect(self.leftWorkoutPlanButtonClicked)
         self.leftWorkoutPlanButton.hide()
 
@@ -186,11 +186,11 @@ class DisplayWorkout(QWidget):
             self.workoutCards[i]["card"] = QLabel(self)
             self.workoutCards[i]["card"].setGeometry(QRect(150 + (i * 340), 188, 300, 300))
             self.workoutCards[i]["card"].setStyleSheet(f"background-color: {BG_COLOR}")
-            self.workoutCards[i]["card"].setPixmap(QPixmap("images/template-YELLOW-card.png"))
+            self.workoutCards[i]["card"].setPixmap(QPixmap("../img/template-YELLOW-card.png"))
             self.workoutCards[i]["cardIllustration"] = QLabel(self)
             self.workoutCards[i]["cardIllustration"].setGeometry(QRect(240 + (i%3*340), 200, 120, 120))
             self.workoutCards[i]["cardIllustration"].setStyleSheet(f"background-color: {YELLOW}")
-            self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap("images/push-up.png"))
+            self.workoutCards[i]["cardIllustration"].setPixmap(QPixmap("../img/push-up.png"))
             self.workoutCards[i]["cardTitle"] = QLabel(self)
             self.workoutCards[i]["cardTitle"].setGeometry(QRect(172 + (i%3*340), 339, 120, 20))
             self.workoutCards[i]["cardTitle"].setStyleSheet(f"color: {PRIMARY_BLACK}; background-color: {LIGHT_YELLOW}")
@@ -226,7 +226,7 @@ class DisplayWorkout(QWidget):
         for i in range(3):
             self.workoutPlanCards.append({})
             self.workoutPlanCards[i]["card"] = QLabel(self)
-            self.workoutPlanCards[i]["card"].setPixmap(QPixmap("images/template-blue-card.png"))
+            self.workoutPlanCards[i]["card"].setPixmap(QPixmap("../img/template-blue-card.png"))
             self.workoutPlanCards[i]["card"].setStyleSheet(f"background-color: {BG_COLOR}")
             self.workoutPlanCards[i]["card"].move(150 + (i%3*340), 568)
             self.workoutPlanCards[i]["cardTitle"] = QLabel(self)

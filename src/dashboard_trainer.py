@@ -59,7 +59,7 @@ class TrainerDashboard(QWidget):
     # Set up background image
     self.setStyleSheet(f"background-color: {bg_color}")
     # Set up logo
-    logoPixmap = QPixmap("images/dashboard-fitpal-logo.png")
+    logoPixmap = QPixmap("../img/dashboard-fitpal-logo.png")
     logo = QLabel(self)
     logo.setPixmap(logoPixmap)
     logo.move(60, 30)
@@ -80,13 +80,13 @@ class TrainerDashboard(QWidget):
     heading.setFont(inter48)
     # Set up cards
     yellowCard = QLabel(self)
-    yellowCardPixmap = QPixmap("images/dashboard-card-yellow")
+    yellowCardPixmap = QPixmap("../img/dashboard-card-yellow")
     yellowCard.setPixmap(yellowCardPixmap)
     yellowCard.move(60, 195)
     yellowCard.setStyleSheet(f"background-color: {bg_color}")
 
     gumCard = QLabel(self)
-    gumCardPixmap = QPixmap("images/dashboard-card-gum")
+    gumCardPixmap = QPixmap("../img/dashboard-card-gum")
     gumCard.setPixmap(gumCardPixmap)
     gumCard.move(490, 195)
     gumCard.setStyleSheet(f"background-color: {bg_color}")

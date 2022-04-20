@@ -42,7 +42,7 @@ class LoginWindow(QWidget):
 
         # Label untuk logo
         logo = QLabel(self)
-        logoImg = QPixmap("images/fitpal-logo.png")
+        logoImg = QPixmap("../img/fitpal-logo.png")
         logo.setPixmap(logoImg)
         logo.move(495, 45)
 
@@ -55,7 +55,7 @@ class LoginWindow(QWidget):
 
         # Label untuk card
         card = QLabel(self)
-        cardImg = QPixmap("images/login-card.png")
+        cardImg = QPixmap("../img/login-card.png")
         card.setPixmap(cardImg)
         card.move(309, 197)
 
@@ -146,7 +146,7 @@ class LoginWindow(QWidget):
 
         # Eye icon
         eyeIcon = ClickableLabel(self)
-        eyeIconImg = QPixmap("images/eye-icon.png")
+        eyeIconImg = QPixmap("../img/eye-icon.png")
         eyeIcon.setPixmap(eyeIconImg)
         eyeIcon.move(800, 365)
         eyeIcon.setStyleSheet("background-color: #3E405B")

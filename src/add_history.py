@@ -97,7 +97,7 @@ class addHistory(QWidget):
 
         # logo
         self.logo = QLabel(self)
-        self.logo.setPixmap(QPixmap("images/dashboard-fitpal-logo.png"))
+        self.logo.setPixmap(QPixmap("../img/dashboard-fitpal-logo.png"))
         self.logo.move(60, 30)
         self.logo.setStyleSheet(f"background-color: {bg_color}")
         # end of logo
@@ -219,24 +219,28 @@ class addHistory(QWidget):
             self.msgBox.exec()
             return
         c = self.conn.cursor()
-        c.execute(f"SELECT * FROM list_olahraga WHERE name = '{self.title_input.text()}'")
+        c.execute(
+            f"SELECT * FROM list_olahraga WHERE name = '{self.title_input.text()}'")
         res = c.fetchall()
         if(res == None or res == []):
             # Olahraganya tidak ada
-            c.execute(f"INSERT INTO workout_history (user_id, olahraga_id, name, specification, date) VALUES ({self.user['id']}, -1, '{self.title_input.text()}', '{self.specification.text()}', '{self.date.text()}')")
+            c.execute(
+                f"INSERT INTO workout_history (user_id, olahraga_id, name, specification, date) VALUES ({self.user['id']}, -1, '{self.title_input.text()}', '{self.specification.text()}', '{self.date.text()}')")
         else:
-            c.execute(f"INSERT INTO workout_history (user_id, olahraga_id, specification, date) VALUES ({self.user['id']}, {res[0][0]}, '{self.specification.text()}', '{self.date.text()}')")
-        
-        #close connection and clear
+            c.execute(
+                f"INSERT INTO workout_history (user_id, olahraga_id, specification, date) VALUES ({self.user['id']}, {res[0][0]}, '{self.specification.text()}', '{self.date.text()}')")
+
+        # close connection and clear
         self.conn.commit()
         self.title_input.clear()
         self.specification.clear()
         self.date.clear()
 
-        #add history succesful
+        # add history succesful
         self.msgBox = QMessageBox()
         self.msgBox.setText("Successfuly added workout to your history!")
-        self.msgBox.setWindowTitle("Successfuly added workout to your history!")
+        self.msgBox.setWindowTitle(
+            "Successfuly added workout to your history!")
         self.msgBox.setIcon(QMessageBox.Icon.Information)
         self.msgBox.setStyleSheet("background-color: white")
         self.msgBox.setStandardButtons(QMessageBox.StandardButton.Ok)

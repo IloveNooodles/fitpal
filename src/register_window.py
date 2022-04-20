@@ -46,7 +46,7 @@ class RegisterWindow(QWidget):
 
         # Card label
         card = QLabel(self)
-        cardImg = QPixmap("images/register-card.png")
+        cardImg = QPixmap("../img/register-card.png")
         card.setPixmap(cardImg)
         card.move(309, 63)
 
@@ -197,7 +197,7 @@ class RegisterWindow(QWidget):
 
         # Eye icon
         eyeIcon = ClickableLabel(self)
-        eyeIconImg = QPixmap("images/eye-icon.png")
+        eyeIconImg = QPixmap("../img/eye-icon.png")
         eyeIcon.setPixmap(eyeIconImg)
         eyeIcon.move(819, 388)
         eyeIcon.setStyleSheet("background-color: #3E405B")
